@@ -1,4 +1,4 @@
-import 'package:fic6_fe_beliyuk/bloc/bloc/get_all_product_bloc.dart';
+import 'package:fic6_fe_beliyuk/bloc/get_all_product/get_all_product_bloc.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/product_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/presentation/pages/main/main_page.dart';
 import 'package:flutter/material.dart';
