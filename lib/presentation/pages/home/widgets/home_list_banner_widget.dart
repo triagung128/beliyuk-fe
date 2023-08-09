@@ -1,17 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fic6_fe_beliyuk/bloc/get_all_banner/get_all_banner_bloc.dart';
-import 'package:fic6_fe_beliyuk/common/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeBannerWidget extends StatefulWidget {
-  const HomeBannerWidget({super.key});
+import 'package:fic6_fe_beliyuk/bloc/get_all_banner/get_all_banner_bloc.dart';
+import 'package:fic6_fe_beliyuk/common/global_variables.dart';
+
+class HomeListBannerWidget extends StatefulWidget {
+  const HomeListBannerWidget({super.key});
 
   @override
-  State<HomeBannerWidget> createState() => _HomeBannerWidgetState();
+  State<HomeListBannerWidget> createState() => _HomeListBannerWidgetState();
 }
 
-class _HomeBannerWidgetState extends State<HomeBannerWidget> {
+class _HomeListBannerWidgetState extends State<HomeListBannerWidget> {
   final CarouselController _carouselController = CarouselController();
 
   int _currentIndex = 0;
@@ -21,40 +23,65 @@ class _HomeBannerWidgetState extends State<HomeBannerWidget> {
     return BlocBuilder<GetAllBannerBloc, GetAllBannerState>(
       builder: (context, state) {
         if (state is GetAllBannerLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const SizedBox(
+            height: 144,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
 
         if (state is GetAllBannerLoaded) {
           return Column(
             children: [
-              CarouselSlider(
+              CarouselSlider.builder(
                 carouselController: _carouselController,
-                items: state.data.data
-                    .map((item) => Builder(
-                          builder: (_) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.symmetric(horizontal: 5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                      '${GlobalVariables.baseUrl}${item.attributes.image.data.attributes.url}'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            );
-                          },
-                        ))
-                    .toList(),
+                itemCount: state.data.data.length,
+                itemBuilder: (context, index, realIndex) {
+                  final banner = state.data.data[index];
+
+                  return CachedNetworkImage(
+                    imageUrl:
+                        '${GlobalVariables.baseUrl}${banner.attributes.image.data.attributes.url}',
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    progressIndicatorBuilder: (_, __, progress) => Center(
+                      child: CircularProgressIndicator(
+                        value: progress.progress,
+                      ),
+                    ),
+                    errorWidget: (context, _, __) => Container(
+                      height: 144,
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey[350],
+                      ),
+                      child: const Icon(
+                        Icons.broken_image,
+                        size: 48,
+                      ),
+                    ),
+                  );
+                },
                 options: CarouselOptions(
+                  pageViewKey: const PageStorageKey('homeListBanner'),
                   viewportFraction: 1,
                   autoPlay: true,
                   enlargeCenterPage: false,
                   height: 144,
-                  onPageChanged: (index, _) {
+                  initialPage: 0,
+                  onPageChanged: (index, x) {
                     setState(() => _currentIndex = index);
                   },
                 ),
@@ -106,26 +133,7 @@ class _HomeBannerWidgetState extends State<HomeBannerWidget> {
           );
         }
 
-        return Container(
-          height: 144,
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.symmetric(horizontal: 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.grey[400],
-          ),
-          child: const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.broken_image,
-                size: 38,
-              ),
-              SizedBox(height: 8),
-              Text('Failed get data banner !'),
-            ],
-          ),
-        );
+        return Container(height: 144);
       },
     );
   }

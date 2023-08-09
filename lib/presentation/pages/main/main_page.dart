@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+
 import 'package:fic6_fe_beliyuk/presentation/pages/home/home_page.dart';
 import 'package:fic6_fe_beliyuk/presentation/pages/profile/profile_page.dart';
 import 'package:fic6_fe_beliyuk/presentation/pages/transaction_history/transaction_history_page.dart';
 import 'package:fic6_fe_beliyuk/presentation/pages/wishlist/wishlist_page.dart';
-import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -34,7 +35,9 @@ class _MainPageState extends State<MainPage> {
   ];
 
   final List<Widget> _listWidget = [
-    const HomePage(),
+    const HomePage(
+      key: PageStorageKey('mainHomePage'),
+    ),
     const WishlistPage(),
     const TransactionHistoryPage(),
     const ProfilePage(),
@@ -47,7 +50,10 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _listWidget[_bottomNavIndex],
+      body: IndexedStack(
+        index: _bottomNavIndex,
+        children: _listWidget,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _bottomNavIndex,

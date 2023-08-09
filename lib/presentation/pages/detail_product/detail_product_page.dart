@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fic6_fe_beliyuk/common/global_variables.dart';
 import 'package:fic6_fe_beliyuk/common/int_extensions.dart';
 import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
@@ -24,16 +25,35 @@ class DetailProductPage extends StatelessWidget {
           children: [
             Hero(
               tag: 'product#${product.id}',
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 320,
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(
-                        '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}'),
+              child: CachedNetworkImage(
+                imageUrl:
+                    '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}',
+                imageBuilder: (context, imageProvider) => Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 320,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: imageProvider,
+                    ),
                   ),
+                ),
+                progressIndicatorBuilder: (_, __, progress) => SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 320,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      value: progress.progress,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, _, __) => Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 320,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[350],
+                  ),
+                  child: const Icon(Icons.broken_image, size: 62),
                 ),
               ),
             ),

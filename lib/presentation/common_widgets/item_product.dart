@@ -1,8 +1,10 @@
-import 'package:fic6_fe_beliyuk/common/int_extensions.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+
 import 'package:fic6_fe_beliyuk/common/global_variables.dart';
+import 'package:fic6_fe_beliyuk/common/int_extensions.dart';
 import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
 import 'package:fic6_fe_beliyuk/presentation/pages/detail_product/detail_product_page.dart';
-import 'package:flutter/material.dart';
 
 class ItemProduct extends StatelessWidget {
   final ProductModel product;
@@ -27,24 +29,39 @@ class ItemProduct extends StatelessWidget {
         },
         borderRadius: BorderRadius.circular(10),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
               child: Hero(
                 tag: 'product#${product.id}',
-                child: Container(
-                  height: 120,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(10),
-                    ),
-                    image: DecorationImage(
-                      fit: BoxFit.contain,
-                      image: NetworkImage(
-                          '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}'),
+                child: CachedNetworkImage(
+                  imageUrl:
+                      '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}',
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 120,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(10),
+                      ),
+                      image: DecorationImage(image: imageProvider),
                     ),
                   ),
+                  progressIndicatorBuilder: (_, __, progress) => Center(
+                    child: CircularProgressIndicator(
+                      value: progress.progress,
+                    ),
+                  ),
+                  errorWidget: (_, __, ___) => Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[350],
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(10),
+                      ),
+                    ),
+                    child: const Icon(Icons.broken_image, size: 62),
+                  ),
+                  height: 120,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),

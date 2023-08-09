@@ -1,7 +1,8 @@
-import 'package:fic6_fe_beliyuk/bloc/get_all_product/get_all_product_bloc.dart';
-import 'package:fic6_fe_beliyuk/presentation/common_widgets/item_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:fic6_fe_beliyuk/bloc/get_all_product/get_all_product_bloc.dart';
+import 'package:fic6_fe_beliyuk/presentation/common_widgets/item_product.dart';
 
 class HomeListProductWidget extends StatelessWidget {
   const HomeListProductWidget({super.key});
@@ -11,13 +12,17 @@ class HomeListProductWidget extends StatelessWidget {
     return BlocBuilder<GetAllProductBloc, GetAllProductState>(
       builder: (context, state) {
         if (state is GetAllProductLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const SizedBox(
+            height: 110,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
 
         if (state is GetAllProductLoaded) {
           return GridView.builder(
+            key: const PageStorageKey<String>('homeListProduct'),
             padding: EdgeInsets.zero,
             shrinkWrap: true,
             physics: const ScrollPhysics(),
@@ -41,9 +46,7 @@ class HomeListProductWidget extends StatelessWidget {
           );
         }
 
-        return const Center(
-          child: Text('Failed Get Data!'),
-        );
+        return Container();
       },
     );
   }
