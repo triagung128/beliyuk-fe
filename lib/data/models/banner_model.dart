@@ -1,18 +1,18 @@
 import 'package:equatable/equatable.dart';
 import 'package:fic6_fe_beliyuk/data/models/image_model.dart';
 
-class CategoryModel extends Equatable {
+class BannerModel extends Equatable {
   final int id;
-  final CategoryAttributes attributes;
+  final BannerAttribute attributes;
 
-  const CategoryModel({
+  const BannerModel({
     required this.id,
     required this.attributes,
   });
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+  factory BannerModel.fromJson(Map<String, dynamic> json) => BannerModel(
         id: json['id'],
-        attributes: CategoryAttributes.fromJson(json['attributes']),
+        attributes: BannerAttribute.fromJson(json['attributes']),
       );
 
   Map<String, dynamic> toJson() => {
@@ -24,28 +24,28 @@ class CategoryModel extends Equatable {
   List<Object> get props => [id, attributes];
 }
 
-class CategoryAttributes extends Equatable {
+class BannerAttribute extends Equatable {
   final String name;
   final DateTime createdAt;
   final DateTime updatedAt;
   final DateTime publishedAt;
-  final Logo logo;
+  final BannerImage image;
 
-  const CategoryAttributes({
+  const BannerAttribute({
     required this.name,
     required this.createdAt,
     required this.updatedAt,
     required this.publishedAt,
-    required this.logo,
+    required this.image,
   });
 
-  factory CategoryAttributes.fromJson(Map<String, dynamic> json) =>
-      CategoryAttributes(
+  factory BannerAttribute.fromJson(Map<String, dynamic> json) =>
+      BannerAttribute(
         name: json['name'],
         createdAt: DateTime.parse(json['createdAt']),
         updatedAt: DateTime.parse(json['updatedAt']),
         publishedAt: DateTime.parse(json['publishedAt']),
-        logo: Logo.fromJson(json['logo']),
+        image: BannerImage.fromJson(json['image']),
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,7 +53,7 @@ class CategoryAttributes extends Equatable {
         'createdAt': createdAt.toIso8601String(),
         'updatedAt': updatedAt.toIso8601String(),
         'publishedAt': publishedAt.toIso8601String(),
-        'logo': logo.toJson(),
+        'image': image.toJson(),
       };
 
   @override
@@ -62,18 +62,18 @@ class CategoryAttributes extends Equatable {
         createdAt,
         updatedAt,
         publishedAt,
-        logo,
+        image,
       ];
 }
 
-class Logo extends Equatable {
+class BannerImage extends Equatable {
   final ImageModel data;
 
-  const Logo({
+  const BannerImage({
     required this.data,
   });
 
-  factory Logo.fromJson(Map<String, dynamic> json) => Logo(
+  factory BannerImage.fromJson(Map<String, dynamic> json) => BannerImage(
         data: ImageModel.fromJson(json['data']),
       );
 

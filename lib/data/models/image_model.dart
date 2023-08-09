@@ -1,8 +1,10 @@
-class ImageModel {
+import 'package:equatable/equatable.dart';
+
+class ImageModel extends Equatable {
   final int id;
   final ImageAttributes attributes;
 
-  ImageModel({
+  const ImageModel({
     required this.id,
     required this.attributes,
   });
@@ -16,9 +18,12 @@ class ImageModel {
         'id': id,
         'attributes': attributes.toJson(),
       };
+
+  @override
+  List<Object> get props => [id, attributes];
 }
 
-class ImageAttributes {
+class ImageAttributes extends Equatable {
   final String name;
   final String? alternativeText;
   final String? caption;
@@ -36,7 +41,7 @@ class ImageAttributes {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  ImageAttributes({
+  const ImageAttributes({
     required this.name,
     this.alternativeText,
     this.caption,
@@ -94,15 +99,35 @@ class ImageAttributes {
         'createdAt': createdAt.toIso8601String(),
         'updatedAt': updatedAt.toIso8601String(),
       };
+
+  @override
+  List<Object?> get props => [
+        name,
+        alternativeText,
+        caption,
+        width,
+        height,
+        formats,
+        hash,
+        ext,
+        mime,
+        size,
+        url,
+        previewUrl,
+        provider,
+        providerMetadata,
+        createdAt,
+        updatedAt,
+      ];
 }
 
-class Formats {
+class Formats extends Equatable {
   final Format thumbnail;
   final Format? small;
   final Format? medium;
   final Format? large;
 
-  Formats({
+  const Formats({
     required this.thumbnail,
     this.small,
     this.medium,
@@ -122,20 +147,28 @@ class Formats {
         'medium': medium?.toJson(),
         'large': large?.toJson(),
       };
+
+  @override
+  List<Object?> get props => [
+        thumbnail,
+        small,
+        medium,
+        large,
+      ];
 }
 
-class Format {
+class Format extends Equatable {
   final String name;
   final String hash;
   final String ext;
   final String mime;
-  final dynamic path;
+  final String? path;
   final int width;
   final int height;
   final double size;
   final String url;
 
-  Format({
+  const Format({
     required this.name,
     required this.hash,
     required this.ext,
@@ -170,4 +203,17 @@ class Format {
         'size': size,
         'url': url,
       };
+
+  @override
+  List<Object?> get props => [
+        name,
+        hash,
+        ext,
+        mime,
+        path,
+        width,
+        height,
+        size,
+        url,
+      ];
 }

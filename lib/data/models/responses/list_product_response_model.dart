@@ -1,11 +1,12 @@
+import 'package:equatable/equatable.dart';
 import 'package:fic6_fe_beliyuk/data/models/meta_model.dart';
 import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
 
-class ListProductResponseModel {
+class ListProductResponseModel extends Equatable {
   final List<ProductModel> data;
   final MetaModel meta;
 
-  ListProductResponseModel({
+  const ListProductResponseModel({
     required this.data,
     required this.meta,
   });
@@ -21,4 +22,7 @@ class ListProductResponseModel {
         'data': List<dynamic>.from(data.map((product) => product.toJson())),
         'meta': meta.toJson(),
       };
+
+  @override
+  List<Object> get props => [data, meta];
 }

@@ -1,7 +1,9 @@
-class MetaModel {
+import 'package:equatable/equatable.dart';
+
+class MetaModel extends Equatable {
   final Pagination pagination;
 
-  MetaModel({
+  const MetaModel({
     required this.pagination,
   });
 
@@ -12,15 +14,18 @@ class MetaModel {
   Map<String, dynamic> toJson() => {
         'pagination': pagination.toJson(),
       };
+
+  @override
+  List<Object> get props => [pagination];
 }
 
-class Pagination {
+class Pagination extends Equatable {
   final int page;
   final int pageSize;
   final int pageCount;
   final int total;
 
-  Pagination({
+  const Pagination({
     required this.page,
     required this.pageSize,
     required this.pageCount,
@@ -40,4 +45,12 @@ class Pagination {
         'pageCount': pageCount,
         'total': total,
       };
+
+  @override
+  List<Object> get props => [
+        page,
+        pageSize,
+        pageCount,
+        total,
+      ];
 }

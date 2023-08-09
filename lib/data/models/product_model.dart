@@ -1,11 +1,12 @@
+import 'package:equatable/equatable.dart';
 import 'package:fic6_fe_beliyuk/data/models/category_model.dart';
 import 'package:fic6_fe_beliyuk/data/models/image_model.dart';
 
-class ProductModel {
+class ProductModel extends Equatable {
   final int id;
   final ProductAttributes attributes;
 
-  ProductModel({
+  const ProductModel({
     required this.id,
     required this.attributes,
   });
@@ -19,9 +20,12 @@ class ProductModel {
         'id': id,
         'attributes': attributes.toJson(),
       };
+
+  @override
+  List<Object> get props => [id, attributes];
 }
 
-class ProductAttributes {
+class ProductAttributes extends Equatable {
   final String name;
   final String description;
   final int price;
@@ -32,7 +36,7 @@ class ProductAttributes {
   final ProductCategory category;
   final ProductImages images;
 
-  ProductAttributes({
+  const ProductAttributes({
     required this.name,
     required this.description,
     required this.price,
@@ -68,12 +72,25 @@ class ProductAttributes {
         'category': category.toJson(),
         'images': images.toJson(),
       };
+
+  @override
+  List<Object> get props => [
+        name,
+        description,
+        price,
+        createdAt,
+        updatedAt,
+        publishedAt,
+        weight,
+        category,
+        images,
+      ];
 }
 
-class ProductCategory {
+class ProductCategory extends Equatable {
   final CategoryModel data;
 
-  ProductCategory({
+  const ProductCategory({
     required this.data,
   });
 
@@ -85,12 +102,15 @@ class ProductCategory {
   Map<String, dynamic> toJson() => {
         'data': data.toJson(),
       };
+
+  @override
+  List<Object> get props => [data];
 }
 
-class ProductImages {
+class ProductImages extends Equatable {
   final List<ImageModel> data;
 
-  ProductImages({
+  const ProductImages({
     required this.data,
   });
 
@@ -102,4 +122,7 @@ class ProductImages {
   Map<String, dynamic> toJson() => {
         'data': List<dynamic>.from(data.map((image) => image.toJson())),
       };
+
+  @override
+  List<Object> get props => [data];
 }
