@@ -99,20 +99,28 @@ class ImageAttributes {
 class Formats {
   final Format thumbnail;
   final Format? small;
+  final Format? medium;
+  final Format? large;
 
   Formats({
     required this.thumbnail,
     this.small,
+    this.medium,
+    this.large,
   });
 
   factory Formats.fromJson(Map<String, dynamic> json) => Formats(
         thumbnail: Format.fromJson(json['thumbnail']),
         small: json['small'] == null ? null : Format.fromJson(json['small']),
+        medium: json['medium'] == null ? null : Format.fromJson(json['medium']),
+        large: json['large'] == null ? null : Format.fromJson(json['large']),
       );
 
   Map<String, dynamic> toJson() => {
         'thumbnail': thumbnail.toJson(),
         'small': small?.toJson(),
+        'medium': medium?.toJson(),
+        'large': large?.toJson(),
       };
 }
 

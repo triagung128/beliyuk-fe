@@ -1,5 +1,7 @@
+import 'package:fic6_fe_beliyuk/bloc/get_all_banner/get_all_banner_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_category/get_all_category_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_product/get_all_product_bloc.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/banner_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/category_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/product_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/presentation/pages/main/main_page.dart';
@@ -24,6 +26,9 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => GetAllCategoryBloc(CategoryRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (_) => GetAllBannerBloc(BannerRemoteDatasource()),
         ),
       ],
       child: const MaterialApp(

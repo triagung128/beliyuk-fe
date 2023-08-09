@@ -3,19 +3,8 @@ import 'package:fic6_fe_beliyuk/presentation/common_widgets/item_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeListProductWidget extends StatefulWidget {
+class HomeListProductWidget extends StatelessWidget {
   const HomeListProductWidget({super.key});
-
-  @override
-  State<HomeListProductWidget> createState() => _HomeListProductWidgetState();
-}
-
-class _HomeListProductWidgetState extends State<HomeListProductWidget> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<GetAllProductBloc>().add(DoGetAllProductEvent());
-  }
 
   @override
   Widget build(BuildContext context) {
