@@ -41,11 +41,7 @@ class _HomeListProductWidgetState extends State<HomeListProductWidget> {
             itemCount: state.data.data.length,
             itemBuilder: (context, index) {
               final product = state.data.data[index];
-              return ItemProduct(
-                imageUrlPath: product.attributes.images.data[0].attributes.url,
-                name: product.attributes.name,
-                price: product.attributes.price,
-              );
+              return ItemProduct(product: product);
             },
           );
         }
