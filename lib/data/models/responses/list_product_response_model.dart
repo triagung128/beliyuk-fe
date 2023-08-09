@@ -2,8 +2,8 @@ import 'package:fic6_fe_beliyuk/data/models/meta_model.dart';
 import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
 
 class ListProductResponseModel {
-  List<ProductModel> data;
-  MetaModel meta;
+  final List<ProductModel> data;
+  final MetaModel meta;
 
   ListProductResponseModel({
     required this.data,

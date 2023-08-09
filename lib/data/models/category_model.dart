@@ -1,8 +1,8 @@
 import 'package:fic6_fe_beliyuk/data/models/image_model.dart';
 
 class CategoryModel {
-  int id;
-  CategoryAttributes attributes;
+  final int id;
+  final CategoryAttributes attributes;
 
   CategoryModel({
     required this.id,
@@ -21,11 +21,11 @@ class CategoryModel {
 }
 
 class CategoryAttributes {
-  String name;
-  DateTime createdAt;
-  DateTime updatedAt;
-  DateTime publishedAt;
-  Logo logo;
+  final String name;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime publishedAt;
+  final Logo logo;
 
   CategoryAttributes({
     required this.name,
@@ -54,7 +54,7 @@ class CategoryAttributes {
 }
 
 class Logo {
-  ImageModel data;
+  final ImageModel data;
 
   Logo({
     required this.data,

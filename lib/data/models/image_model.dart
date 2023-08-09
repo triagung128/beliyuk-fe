@@ -97,8 +97,8 @@ class ImageAttributes {
 }
 
 class Formats {
-  Format thumbnail;
-  Format? small;
+  final Format thumbnail;
+  final Format? small;
 
   Formats({
     required this.thumbnail,
@@ -117,15 +117,15 @@ class Formats {
 }
 
 class Format {
-  String name;
-  String hash;
-  String ext;
-  String mime;
-  dynamic path;
-  int width;
-  int height;
-  double size;
-  String url;
+  final String name;
+  final String hash;
+  final String ext;
+  final String mime;
+  final dynamic path;
+  final int width;
+  final int height;
+  final double size;
+  final String url;
 
   Format({
     required this.name,

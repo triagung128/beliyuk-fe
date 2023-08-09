@@ -2,8 +2,8 @@ import 'package:fic6_fe_beliyuk/data/models/category_model.dart';
 import 'package:fic6_fe_beliyuk/data/models/image_model.dart';
 
 class ProductModel {
-  int id;
-  ProductAttributes attributes;
+  final int id;
+  final ProductAttributes attributes;
 
   ProductModel({
     required this.id,
@@ -22,15 +22,15 @@ class ProductModel {
 }
 
 class ProductAttributes {
-  String name;
-  String description;
-  int price;
-  DateTime createdAt;
-  DateTime updatedAt;
-  DateTime publishedAt;
-  int weight;
-  ProductCategory category;
-  ProductImages images;
+  final String name;
+  final String description;
+  final int price;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime publishedAt;
+  final int weight;
+  final ProductCategory category;
+  final ProductImages images;
 
   ProductAttributes({
     required this.name,
@@ -71,7 +71,7 @@ class ProductAttributes {
 }
 
 class ProductCategory {
-  CategoryModel data;
+  final CategoryModel data;
 
   ProductCategory({
     required this.data,
@@ -88,7 +88,7 @@ class ProductCategory {
 }
 
 class ProductImages {
-  List<ImageModel> data;
+  final List<ImageModel> data;
 
   ProductImages({
     required this.data,
