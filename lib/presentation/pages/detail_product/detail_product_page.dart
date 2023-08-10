@@ -1,16 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+
 import 'package:fic6_fe_beliyuk/common/global_variables.dart';
 import 'package:fic6_fe_beliyuk/common/int_extensions.dart';
 import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
 import 'package:fic6_fe_beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
-import 'package:flutter/material.dart';
 
 class DetailProductPage extends StatelessWidget {
   final ProductModel product;
+  final String tagHero;
 
   const DetailProductPage({
     super.key,
     required this.product,
+    required this.tagHero,
   });
 
   @override
@@ -24,7 +27,7 @@ class DetailProductPage extends StatelessWidget {
         child: Column(
           children: [
             Hero(
-              tag: 'product#${product.id}',
+              tag: tagHero,
               child: CachedNetworkImage(
                 imageUrl:
                     '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}',

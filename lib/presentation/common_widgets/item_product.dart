@@ -8,8 +8,9 @@ import 'package:fic6_fe_beliyuk/presentation/pages/detail_product/detail_product
 
 class ItemProduct extends StatelessWidget {
   final ProductModel product;
+  final String tagHero = 'product#${DateTime.now().millisecondsSinceEpoch}';
 
-  const ItemProduct({
+  ItemProduct({
     super.key,
     required this.product,
   });
@@ -24,7 +25,10 @@ class ItemProduct extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return DetailProductPage(product: product);
+            return DetailProductPage(
+              product: product,
+              tagHero: tagHero,
+            );
           }));
         },
         borderRadius: BorderRadius.circular(10),
@@ -32,7 +36,7 @@ class ItemProduct extends StatelessWidget {
           children: [
             Expanded(
               child: Hero(
-                tag: 'product#${product.id}',
+                tag: tagHero,
                 child: CachedNetworkImage(
                   imageUrl:
                       '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}',
