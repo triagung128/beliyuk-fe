@@ -1,3 +1,4 @@
+import 'package:fic6_fe_beliyuk/bloc/get_products_by_category_id/get_products_by_category_id_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -37,6 +38,9 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => SearchProductBloc(ProductRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (_) => GetProductsByCategoryIdBloc(ProductRemoteDatasource()),
         ),
       ],
       child: const MaterialApp(

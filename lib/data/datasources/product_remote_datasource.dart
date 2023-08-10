@@ -33,4 +33,18 @@ class ProductRemoteDatasource {
       return const Left('Data produk gagal dimuat !');
     }
   }
+
+  Future<Either<String, ListProductResponseModel>> getProductsByCategoryId(
+    int id,
+  ) async {
+    final response = await http.get(Uri.parse(
+        '${GlobalVariables.baseUrl}/api/products?filters[category][id][\$eq]=$id&populate[category][populate]=*&populate[images]=*'));
+
+    if (response.statusCode == 200) {
+      return Right(
+          ListProductResponseModel.fromJson(json.decode(response.body)));
+    } else {
+      return const Left('Data produk gagal dimuat !');
+    }
+  }
 }
