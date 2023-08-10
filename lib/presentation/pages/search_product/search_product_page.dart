@@ -73,14 +73,11 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 if (state is SearchProductLoaded) {
                   if (state.data.data.isNotEmpty) {
                     return GridView.builder(
-                      key: const PageStorageKey<String>('searchProduct'),
                       padding: const EdgeInsets.only(
                         left: 16,
                         right: 16,
                         bottom: 16,
                       ),
-                      shrinkWrap: true,
-                      physics: const ScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,

@@ -23,11 +23,13 @@ class _HomeSearchWidgetState extends State<HomeSearchWidget> {
       child: TextFormField(
         controller: _searchController,
         onFieldSubmitted: (_) {
-          final String value = _searchController.text;
-          _searchController.text = '';
-          Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return SearchProductPage(productName: value);
-          }));
+          if (_searchController.text != '') {
+            final String value = _searchController.text;
+            _searchController.text = '';
+            Navigator.push(context, MaterialPageRoute(builder: (_) {
+              return SearchProductPage(productName: value);
+            }));
+          }
         },
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.search),
