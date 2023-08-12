@@ -131,8 +131,7 @@ class ItemCart extends StatelessWidget {
       child: Row(
         children: [
           CachedNetworkImage(
-            imageUrl:
-                '${GlobalVariables.baseUrl}${cart.product.attributes.images.data[0].attributes.url}',
+            imageUrl: '${GlobalVariables.baseUrl}${cart.image}',
             imageBuilder: (_, imageProvider) => Container(
               height: 110,
               width: 110,
@@ -176,7 +175,7 @@ class ItemCart extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        cart.product.attributes.name,
+                        cart.name,
                         style: const TextStyle(
                           fontSize: 16,
                         ),
@@ -185,7 +184,7 @@ class ItemCart extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        cart.product.attributes.price.intToFormatRupiah,
+                        cart.price.intToFormatRupiah,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -200,7 +199,7 @@ class ItemCart extends StatelessWidget {
                         onTap: () {
                           context
                               .read<CartBloc>()
-                              .add(RemoveCartEvent(cart.product));
+                              .add(RemoveCartEvent(cart.id));
                         },
                         borderRadius: BorderRadius.circular(10),
                         child: const Padding(
@@ -217,11 +216,13 @@ class ItemCart extends StatelessWidget {
                         child: Row(
                           children: [
                             InkWell(
-                              onTap: () {
-                                context
-                                    .read<CartBloc>()
-                                    .add(ReduceQuantityEvent(cart.product));
-                              },
+                              onTap: cart.quantity == 1
+                                  ? null
+                                  : () {
+                                      context
+                                          .read<CartBloc>()
+                                          .add(ReduceQuantityEvent(cart));
+                                    },
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 bottomLeft: Radius.circular(10),
@@ -235,7 +236,13 @@ class ItemCart extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                child: const Icon(Icons.remove, size: 20),
+                                child: Icon(
+                                  Icons.remove,
+                                  size: 20,
+                                  color: cart.quantity == 1
+                                      ? Colors.grey
+                                      : Colors.blue,
+                                ),
                               ),
                             ),
                             Container(
@@ -243,7 +250,7 @@ class ItemCart extends StatelessWidget {
                                 horizontal: 10,
                               ),
                               child: Text(
-                                '${cart.qty}',
+                                '${cart.quantity}',
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -254,7 +261,7 @@ class ItemCart extends StatelessWidget {
                               onTap: () {
                                 context
                                     .read<CartBloc>()
-                                    .add(AddQuantityEvent(cart.product));
+                                    .add(AddQuantityEvent(cart));
                               },
                               borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(10),
@@ -269,7 +276,11 @@ class ItemCart extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                child: const Icon(Icons.add, size: 20),
+                                child: const Icon(
+                                  Icons.add,
+                                  size: 20,
+                                  color: Colors.blue,
+                                ),
                               ),
                             ),
                           ],

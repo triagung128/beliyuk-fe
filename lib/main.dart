@@ -1,15 +1,17 @@
-import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:fic6_fe_beliyuk/bloc/get_products_by_category_id/get_products_by_category_id_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_banner/get_all_banner_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_category/get_all_category_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_product/get_all_product_bloc.dart';
+import 'package:fic6_fe_beliyuk/bloc/get_products_by_category_id/get_products_by_category_id_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/search_product/search_product_bloc.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/banner_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/cart_local_datasource.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/category_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/database/database_helper.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/product_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/presentation/pages/main/main_page.dart';
 
@@ -44,7 +46,8 @@ class MainApp extends StatelessWidget {
           create: (_) => GetProductsByCategoryIdBloc(ProductRemoteDatasource()),
         ),
         BlocProvider(
-          create: (_) => CartBloc(),
+          create: (_) => CartBloc(CartLocalDatasource(DatabaseHelper()))
+            ..add(DoGetAllCartEvent()),
         ),
       ],
       child: const MaterialApp(

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fic6_fe_beliyuk/data/models/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -147,7 +148,14 @@ class DetailProductPage extends StatelessWidget {
           margin: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: () {
-              context.read<CartBloc>().add(AddCartEvent(product));
+              final cartItem = CartModel(
+                id: product.id,
+                name: product.attributes.name,
+                price: product.attributes.price,
+                image: product.attributes.images.data[0].attributes.url,
+              );
+
+              context.read<CartBloc>().add(AddCartEvent(cartItem));
             },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
