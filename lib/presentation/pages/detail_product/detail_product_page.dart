@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
 import 'package:fic6_fe_beliyuk/common/global_variables.dart';
 import 'package:fic6_fe_beliyuk/common/int_extensions.dart';
 import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
@@ -144,7 +146,9 @@ class DetailProductPage extends StatelessWidget {
           height: 42,
           margin: const EdgeInsets.all(16),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<CartBloc>().add(AddCartEvent(product));
+            },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(7),

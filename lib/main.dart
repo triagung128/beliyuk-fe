@@ -1,3 +1,4 @@
+import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_products_by_category_id/get_products_by_category_id_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,6 +42,9 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => GetProductsByCategoryIdBloc(ProductRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (_) => CartBloc(),
         ),
       ],
       child: const MaterialApp(
