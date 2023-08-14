@@ -17,22 +17,25 @@ class ItemProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: InkWell(
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return DetailProductPage(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => DetailProductPage(
               product: product,
               tagHero: tagHero,
-            );
-          }));
-        },
-        borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        );
+      },
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Hero(
@@ -41,7 +44,6 @@ class ItemProduct extends StatelessWidget {
                   imageUrl:
                       '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}',
                   imageBuilder: (context, imageProvider) => Container(
-                    height: 120,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.vertical(
@@ -56,6 +58,7 @@ class ItemProduct extends StatelessWidget {
                     ),
                   ),
                   errorWidget: (_, __, ___) => Container(
+                    width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.grey[350],
                       borderRadius: const BorderRadius.vertical(
@@ -64,15 +67,15 @@ class ItemProduct extends StatelessWidget {
                     ),
                     child: const Icon(Icons.broken_image, size: 62),
                   ),
-                  height: 120,
                   fit: BoxFit.contain,
                 ),
               ),
             ),
-            Padding(
+            Container(
+              height: 95,
               padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 12,
+                horizontal: 10,
+                vertical: 16,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +85,7 @@ class ItemProduct extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 12),
                   Text(
                     product.attributes.price.intToFormatRupiah,
                     style: const TextStyle(

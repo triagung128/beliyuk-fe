@@ -25,12 +25,12 @@ class HomeListProductWidget extends StatelessWidget {
             key: const PageStorageKey<String>('homeListProduct'),
             padding: EdgeInsets.zero,
             shrinkWrap: true,
-            physics: const ScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,
-              childAspectRatio: 1.0 / 1.3,
+              childAspectRatio: 1.0 / 1.5,
             ),
             itemCount: state.data.data.length,
             itemBuilder: (context, index) {
