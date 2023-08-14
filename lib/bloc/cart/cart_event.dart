@@ -44,3 +44,5 @@ final class ReduceQuantityEvent extends CartEvent {
   @override
   List<Object> get props => [cart];
 }
+
+final class DeleteAllCartEvent extends CartEvent {}

@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:fic6_fe_beliyuk/bloc/auth/auth_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_banner/get_all_banner_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_category/get_all_category_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_product/get_all_product_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_products_by_category_id/get_products_by_category_id_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/search_product/search_product_bloc.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/auth_local_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/auth_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/banner_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/cart_local_datasource.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/category_remote_datasource.dart';
@@ -48,6 +51,12 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (_) => CartBloc(CartLocalDatasource(DatabaseHelper()))
             ..add(DoGetAllCartEvent()),
+        ),
+        BlocProvider(
+          create: (_) => AuthBloc(
+            remoteDatasource: AuthRemoteDatasource(),
+            localDatasource: AuthLocalDatasource(),
+          ),
         ),
       ],
       child: const MaterialApp(

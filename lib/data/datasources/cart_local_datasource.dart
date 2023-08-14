@@ -61,4 +61,12 @@ class CartLocalDatasource {
       throw Exception(e.toString());
     }
   }
+
+  Future<void> deleteCarts() async {
+    try {
+      await _databaseHelper.deleteCarts();
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

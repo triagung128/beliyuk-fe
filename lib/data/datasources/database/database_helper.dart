@@ -98,4 +98,9 @@ class DatabaseHelper {
       whereArgs: [cart.id],
     );
   }
+
+  Future<int> deleteCarts() async {
+    final db = await database;
+    return await db!.delete(_tbCart);
+  }
 }

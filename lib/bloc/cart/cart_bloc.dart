@@ -85,6 +85,20 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         totalItems: totalItems,
       ));
     });
+
+    on<DeleteAllCartEvent>((event, emit) async {
+      await _datasource.deleteCarts();
+
+      final items = await _getCarts();
+      final totalPrice = await _totalPrice();
+      final totalItems = await _totalItems();
+
+      emit(CartLoaded(
+        items: items,
+        totalPrice: totalPrice,
+        totalItems: totalItems,
+      ));
+    });
   }
 
   Future<List<CartModel>> _getCarts() async {
