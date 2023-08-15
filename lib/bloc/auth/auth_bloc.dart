@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fic6_fe_beliyuk/common/enum_state.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/auth_local_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/auth_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/local/auth_local_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/remote/auth_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/data/models/requests/login_request_model.dart';
 import 'package:fic6_fe_beliyuk/data/models/requests/register_request_model.dart';
 import 'package:fic6_fe_beliyuk/data/models/user_model.dart';

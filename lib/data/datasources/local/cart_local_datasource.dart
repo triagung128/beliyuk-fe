@@ -1,4 +1,4 @@
-import 'package:fic6_fe_beliyuk/data/datasources/database/database_helper.dart';
+import 'package:fic6_fe_beliyuk/data/database/database_helper.dart';
 import 'package:fic6_fe_beliyuk/data/models/cart_model.dart';
 
 class CartLocalDatasource {

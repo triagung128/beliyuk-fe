@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/category_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/models/responses/list_category_response_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:fic6_fe_beliyuk/data/datasources/remote/category_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/models/responses/list_category_response_model.dart';
 
 part 'get_all_category_event.dart';
 part 'get_all_category_state.dart';

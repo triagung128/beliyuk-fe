@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/banner_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/models/responses/list_banner_response_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:fic6_fe_beliyuk/data/datasources/remote/banner_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/models/responses/list_banner_response_model.dart';
 
 part 'get_all_banner_event.dart';
 part 'get_all_banner_state.dart';

@@ -10,13 +10,13 @@ import 'package:fic6_fe_beliyuk/bloc/get_all_category/get_all_category_bloc.dart
 import 'package:fic6_fe_beliyuk/bloc/get_all_product/get_all_product_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_products_by_category_id/get_products_by_category_id_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/search_product/search_product_bloc.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/auth_local_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/auth_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/banner_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/cart_local_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/category_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/database/database_helper.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/product_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/database/database_helper.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/local/auth_local_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/local/cart_local_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/remote/auth_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/remote/banner_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/remote/category_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/remote/product_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/presentation/pages/main/main_page.dart';
 
 void main() async {
