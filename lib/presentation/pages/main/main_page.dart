@@ -58,14 +58,14 @@ class _MainPageState extends State<MainPage> {
   void _onBottomNavTapped(int index) async {
     if (index != 0) {
       if (_token == null) {
-        final String result = await Navigator.push(
+        final String? result = await Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => const AuthPage()),
         );
 
         if (!mounted) return;
 
-        if (result == GlobalVariables.successLogin) {
+        if (result != null && result == GlobalVariables.successLogin) {
           setState(() => _bottomNavIndex = index);
         }
       } else {
@@ -83,10 +83,7 @@ class _MainPageState extends State<MainPage> {
         _token = state.token;
       },
       child: Scaffold(
-        body: IndexedStack(
-          index: _bottomNavIndex,
-          children: _listWidget,
-        ),
+        body: _listWidget[_bottomNavIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _bottomNavIndex,
