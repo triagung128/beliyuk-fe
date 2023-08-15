@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:fic6_fe_beliyuk/bloc/auth/auth_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
+import 'package:fic6_fe_beliyuk/bloc/detail_product/detail_product_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_banner/get_all_banner_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_category/get_all_category_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/get_all_product/get_all_product_bloc.dart';
@@ -57,6 +58,9 @@ class MainApp extends StatelessWidget {
             remoteDatasource: AuthRemoteDatasource(),
             localDatasource: AuthLocalDatasource(),
           ),
+        ),
+        BlocProvider(
+          create: (_) => DetailProductBloc(ProductRemoteDatasource()),
         ),
       ],
       child: const MaterialApp(

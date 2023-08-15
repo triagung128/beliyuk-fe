@@ -8,9 +8,8 @@ import 'package:fic6_fe_beliyuk/presentation/pages/detail_product/detail_product
 
 class ItemProduct extends StatelessWidget {
   final ProductModel product;
-  final String tagHero = 'product#${DateTime.now().millisecondsSinceEpoch}';
 
-  ItemProduct({
+  const ItemProduct({
     super.key,
     required this.product,
   });
@@ -22,10 +21,7 @@ class ItemProduct extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => DetailProductPage(
-              product: product,
-              tagHero: tagHero,
-            ),
+            builder: (_) => DetailProductPage(productId: product.id),
           ),
         );
       },
@@ -38,37 +34,34 @@ class ItemProduct extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Hero(
-                tag: tagHero,
-                child: CachedNetworkImage(
-                  imageUrl:
-                      '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}',
-                  imageBuilder: (context, imageProvider) => Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(10),
-                      ),
-                      image: DecorationImage(image: imageProvider),
+              child: CachedNetworkImage(
+                imageUrl:
+                    '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}',
+                imageBuilder: (context, imageProvider) => Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(10),
                     ),
+                    image: DecorationImage(image: imageProvider),
                   ),
-                  progressIndicatorBuilder: (_, __, progress) => Center(
-                    child: CircularProgressIndicator(
-                      value: progress.progress,
-                    ),
-                  ),
-                  errorWidget: (_, __, ___) => Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[350],
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(10),
-                      ),
-                    ),
-                    child: const Icon(Icons.broken_image, size: 62),
-                  ),
-                  fit: BoxFit.contain,
                 ),
+                progressIndicatorBuilder: (_, __, progress) => Center(
+                  child: CircularProgressIndicator(
+                    value: progress.progress,
+                  ),
+                ),
+                errorWidget: (_, __, ___) => Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[350],
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(10),
+                    ),
+                  ),
+                  child: const Icon(Icons.broken_image, size: 62),
+                ),
+                fit: BoxFit.contain,
               ),
             ),
             Container(

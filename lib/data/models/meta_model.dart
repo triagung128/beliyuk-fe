@@ -1,22 +1,24 @@
 import 'package:equatable/equatable.dart';
 
 class MetaModel extends Equatable {
-  final Pagination pagination;
+  final Pagination? pagination;
 
   const MetaModel({
     required this.pagination,
   });
 
   factory MetaModel.fromJson(Map<String, dynamic> json) => MetaModel(
-        pagination: Pagination.fromJson(json['pagination']),
+        pagination: json['pagination'] == null
+            ? null
+            : Pagination.fromJson(json['pagination']),
       );
 
   Map<String, dynamic> toJson() => {
-        'pagination': pagination.toJson(),
+        'pagination': pagination?.toJson(),
       };
 
   @override
-  List<Object> get props => [pagination];
+  List<Object?> get props => [pagination];
 }
 
 class Pagination extends Equatable {
