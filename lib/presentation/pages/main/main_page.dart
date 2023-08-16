@@ -17,12 +17,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<AuthBloc>().add(DoAuthCheckEvent());
-  }
-
   String? _token;
 
   int _bottomNavIndex = 0;
@@ -47,9 +41,7 @@ class _MainPageState extends State<MainPage> {
   ];
 
   final List<Widget> _listWidget = [
-    const HomePage(
-      key: PageStorageKey('mainHomePage'),
-    ),
+    const HomePage(),
     const WishlistPage(),
     const TransactionHistoryPage(),
     const ProfilePage(),
