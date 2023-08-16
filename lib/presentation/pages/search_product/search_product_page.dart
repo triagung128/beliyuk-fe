@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:beliyuk/bloc/search_product/search_product_bloc.dart';
+import 'package:beliyuk/data/datasources/remote/product_remote_datasource.dart';
 import 'package:beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
 import 'package:beliyuk/presentation/common_widgets/item_product.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchProductPage extends StatefulWidget {
   final String productName;
@@ -24,105 +24,111 @@ class _SearchProductPageState extends State<SearchProductPage> {
   void initState() {
     super.initState();
     _searchController.text = widget.productName;
-    context
-        .read<SearchProductBloc>()
-        .add(DoSearchProductEvent(productName: widget.productName));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: const CustomAppBarWithCartIcon(
-        title: Text('Pencarian Produk'),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextFormField(
-              controller: _searchController,
-              onFieldSubmitted: (_) {
-                context.read<SearchProductBloc>().add(
-                    DoSearchProductEvent(productName: _searchController.text));
-              },
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                isDense: true,
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding: EdgeInsets.zero,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(),
-                ),
-                hintText: 'Cari produk disini',
+    return BlocProvider(
+      create: (_) => SearchProductBloc(ProductRemoteDatasource())
+        ..add(DoSearchProductEvent(productName: widget.productName)),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: const CustomAppBarWithCartIcon(
+          title: Text('Pencarian Produk'),
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: BlocBuilder<SearchProductBloc, SearchProductState>(
+                builder: (context, state) {
+                  return TextFormField(
+                    controller: _searchController,
+                    onFieldSubmitted: (_) {
+                      context.read<SearchProductBloc>().add(
+                          DoSearchProductEvent(
+                              productName: _searchController.text));
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.search),
+                      isDense: true,
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsets.zero,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(),
+                      ),
+                      hintText: 'Cari produk disini',
+                    ),
+                  );
+                },
               ),
             ),
-          ),
-          const Divider(thickness: 0.5, height: 0),
-          Expanded(
-            child: BlocBuilder<SearchProductBloc, SearchProductState>(
-              builder: (context, state) {
-                if (state is SearchProductLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-
-                if (state is SearchProductLoaded) {
-                  if (state.data.data.isNotEmpty) {
-                    return GridView.builder(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                        bottom: 16,
-                      ),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        childAspectRatio: 1.0 / 1.3,
-                      ),
-                      itemCount: state.data.data.length,
-                      itemBuilder: (context, index) {
-                        final product = state.data.data[index];
-                        return ItemProduct(product: product);
-                      },
-                    );
-                  } else {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/product-empty.png',
-                          height: 200,
-                          width: 200,
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Opss...',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(height: 4),
-                        const Text('Produk yang Anda cari tidak ditemukan !'),
-                      ],
+            const Divider(thickness: 0.5, height: 0),
+            Expanded(
+              child: BlocBuilder<SearchProductBloc, SearchProductState>(
+                builder: (context, state) {
+                  if (state is SearchProductLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
                   }
-                }
 
-                if (state is SearchProductError) {
-                  return Center(
-                    child: Text(state.messageError),
-                  );
-                }
+                  if (state is SearchProductLoaded) {
+                    if (state.data.data.isNotEmpty) {
+                      return GridView.builder(
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          bottom: 16,
+                        ),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8,
+                          childAspectRatio: 1.0 / 1.3,
+                        ),
+                        itemCount: state.data.data.length,
+                        itemBuilder: (context, index) {
+                          final product = state.data.data[index];
+                          return ItemProduct(product: product);
+                        },
+                      );
+                    } else {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/product-empty.png',
+                            height: 200,
+                            width: 200,
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Opss...',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text('Produk yang Anda cari tidak ditemukan !'),
+                        ],
+                      );
+                    }
+                  }
 
-                return Container();
-              },
+                  if (state is SearchProductError) {
+                    return Center(
+                      child: Text(state.messageError),
+                    );
+                  }
+
+                  return const SizedBox();
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
