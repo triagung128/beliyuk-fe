@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:fic6_fe_beliyuk/common/global_variables.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/local/auth_local_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/models/requests/wishlist_request_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/responses/list_wishlist_response_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/wishlist_model.dart';
+import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/data/datasources/local/auth_local_datasource.dart';
+import 'package:beliyuk/data/models/requests/wishlist_request_model.dart';
+import 'package:beliyuk/data/models/responses/list_wishlist_response_model.dart';
+import 'package:beliyuk/data/models/wishlist_model.dart';
 
 class WishlistRemoteDatasource {
   final AuthLocalDatasource _authLocalDatasource;

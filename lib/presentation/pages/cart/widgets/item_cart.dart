@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:fic6_fe_beliyuk/common/global_variables.dart';
-import 'package:fic6_fe_beliyuk/common/int_extensions.dart';
-import 'package:fic6_fe_beliyuk/data/models/cart_model.dart';
+import 'package:beliyuk/bloc/cart/cart_bloc.dart';
+import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/common/int_extensions.dart';
+import 'package:beliyuk/data/models/cart_model.dart';
 
 class ItemCart extends StatelessWidget {
   const ItemCart({

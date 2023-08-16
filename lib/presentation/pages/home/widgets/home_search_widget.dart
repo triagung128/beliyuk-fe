@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:fic6_fe_beliyuk/presentation/pages/search_product/search_product_page.dart';
+import 'package:beliyuk/presentation/pages/search_product/search_product_page.dart';
 
 class HomeSearchWidget extends StatefulWidget {
   const HomeSearchWidget({super.key});

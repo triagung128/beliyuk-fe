@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import 'package:fic6_fe_beliyuk/data/models/meta_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/wishlist_model.dart';
+import 'package:beliyuk/data/models/meta_model.dart';
+import 'package:beliyuk/data/models/wishlist_model.dart';
 
 class ListWishlistResponseModel extends Equatable {
   final List<WishlistModel> data;

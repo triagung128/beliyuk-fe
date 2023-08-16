@@ -3,9 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/home/home_bloc.dart';
-import 'package:fic6_fe_beliyuk/common/enum_state.dart';
-import 'package:fic6_fe_beliyuk/common/global_variables.dart';
+import 'package:beliyuk/bloc/home/home_bloc.dart';
+import 'package:beliyuk/common/enum_state.dart';
+import 'package:beliyuk/common/global_variables.dart';
 
 class HomeListBannerWidget extends StatefulWidget {
   const HomeListBannerWidget({super.key});

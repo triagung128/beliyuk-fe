@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/search_product/search_product_bloc.dart';
-import 'package:fic6_fe_beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
-import 'package:fic6_fe_beliyuk/presentation/common_widgets/item_product.dart';
+import 'package:beliyuk/bloc/search_product/search_product_bloc.dart';
+import 'package:beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
+import 'package:beliyuk/presentation/common_widgets/item_product.dart';
 
 class SearchProductPage extends StatefulWidget {
   final String productName;

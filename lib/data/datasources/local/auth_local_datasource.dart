@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:fic6_fe_beliyuk/data/models/responses/auth_response_model.dart';
+import 'package:beliyuk/data/models/responses/auth_response_model.dart';
 
 class AuthLocalDatasource {
   static const _authKey = 'auth';

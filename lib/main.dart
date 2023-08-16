@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/auth/auth_bloc.dart';
-import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:fic6_fe_beliyuk/bloc/search_product/search_product_bloc.dart';
-import 'package:fic6_fe_beliyuk/data/database/database_helper.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/local/auth_local_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/local/cart_local_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/auth_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/product_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/main/main_page.dart';
+import 'package:beliyuk/bloc/auth/auth_bloc.dart';
+import 'package:beliyuk/bloc/cart/cart_bloc.dart';
+import 'package:beliyuk/bloc/search_product/search_product_bloc.dart';
+import 'package:beliyuk/data/database/database_helper.dart';
+import 'package:beliyuk/data/datasources/local/auth_local_datasource.dart';
+import 'package:beliyuk/data/datasources/local/cart_local_datasource.dart';
+import 'package:beliyuk/data/datasources/remote/auth_remote_datasource.dart';
+import 'package:beliyuk/data/datasources/remote/product_remote_datasource.dart';
+import 'package:beliyuk/presentation/pages/main/main_page.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');

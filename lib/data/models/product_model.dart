@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:fic6_fe_beliyuk/data/models/category_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/image_model.dart';
+import 'package:beliyuk/data/models/category_model.dart';
+import 'package:beliyuk/data/models/image_model.dart';
 
 class ProductModel extends Equatable {
   final int id;

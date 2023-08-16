@@ -2,8 +2,8 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/cart/cart_page.dart';
+import 'package:beliyuk/bloc/cart/cart_bloc.dart';
+import 'package:beliyuk/presentation/pages/cart/cart_page.dart';
 
 class CustomAppBarWithCartIcon extends StatelessWidget
     implements PreferredSizeWidget {

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:fic6_fe_beliyuk/data/models/meta_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
+import 'package:beliyuk/data/models/meta_model.dart';
+import 'package:beliyuk/data/models/product_model.dart';
 
 class ListProductResponseModel extends Equatable {
   final List<ProductModel> data;

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fic6_fe_beliyuk/data/models/image_model.dart';
+import 'package:beliyuk/data/models/image_model.dart';
 
 class BannerModel extends Equatable {
   final int id;

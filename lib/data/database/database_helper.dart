@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
-import 'package:fic6_fe_beliyuk/data/models/cart_model.dart';
+import 'package:beliyuk/data/models/cart_model.dart';
 
 class DatabaseHelper {
   static DatabaseHelper? _databaseHelper;

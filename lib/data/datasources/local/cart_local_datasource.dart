@@ -1,5 +1,5 @@
-import 'package:fic6_fe_beliyuk/data/database/database_helper.dart';
-import 'package:fic6_fe_beliyuk/data/models/cart_model.dart';
+import 'package:beliyuk/data/database/database_helper.dart';
+import 'package:beliyuk/data/models/cart_model.dart';
 
 class CartLocalDatasource {
   final DatabaseHelper _databaseHelper;

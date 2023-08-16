@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/data/datasources/remote/wishlist_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/models/responses/list_wishlist_response_model.dart';
+import 'package:beliyuk/data/datasources/remote/wishlist_remote_datasource.dart';
+import 'package:beliyuk/data/models/responses/list_wishlist_response_model.dart';
 
 part 'wishlist_event.dart';
 part 'wishlist_state.dart';

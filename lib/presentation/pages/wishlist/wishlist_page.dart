@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/wishlist/wishlist_bloc.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/local/auth_local_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/wishlist_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/models/wishlist_model.dart';
-import 'package:fic6_fe_beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/wishlist/widgets/item_wishlist.dart';
+import 'package:beliyuk/bloc/wishlist/wishlist_bloc.dart';
+import 'package:beliyuk/data/datasources/local/auth_local_datasource.dart';
+import 'package:beliyuk/data/datasources/remote/wishlist_remote_datasource.dart';
+import 'package:beliyuk/data/models/wishlist_model.dart';
+import 'package:beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
+import 'package:beliyuk/presentation/pages/wishlist/widgets/item_wishlist.dart';
 
 class WishlistPage extends StatelessWidget {
   const WishlistPage({super.key});

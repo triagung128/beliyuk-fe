@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:fic6_fe_beliyuk/bloc/wishlist/wishlist_bloc.dart';
-import 'package:fic6_fe_beliyuk/common/global_variables.dart';
-import 'package:fic6_fe_beliyuk/common/int_extensions.dart';
-import 'package:fic6_fe_beliyuk/data/models/cart_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/wishlist_model.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/detail_product/detail_product_page.dart';
+import 'package:beliyuk/bloc/cart/cart_bloc.dart';
+import 'package:beliyuk/bloc/wishlist/wishlist_bloc.dart';
+import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/common/int_extensions.dart';
+import 'package:beliyuk/data/models/cart_model.dart';
+import 'package:beliyuk/data/models/wishlist_model.dart';
+import 'package:beliyuk/presentation/pages/detail_product/detail_product_page.dart';
 
 class ItemWishlist extends StatelessWidget {
   const ItemWishlist({

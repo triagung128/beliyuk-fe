@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:fic6_fe_beliyuk/data/models/category_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/meta_model.dart';
+import 'package:beliyuk/data/models/category_model.dart';
+import 'package:beliyuk/data/models/meta_model.dart';
 
 class ListCategoryResponseModel extends Equatable {
   final List<CategoryModel> data;

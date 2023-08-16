@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/home/home_bloc.dart';
-import 'package:fic6_fe_beliyuk/common/enum_state.dart';
-import 'package:fic6_fe_beliyuk/presentation/common_widgets/item_product.dart';
+import 'package:beliyuk/bloc/home/home_bloc.dart';
+import 'package:beliyuk/common/enum_state.dart';
+import 'package:beliyuk/presentation/common_widgets/item_product.dart';
 
 class HomeListProductWidget extends StatelessWidget {
   const HomeListProductWidget({super.key});

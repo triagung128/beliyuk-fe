@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:fic6_fe_beliyuk/data/models/cart_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
+import 'package:beliyuk/bloc/cart/cart_bloc.dart';
+import 'package:beliyuk/data/models/cart_model.dart';
+import 'package:beliyuk/data/models/product_model.dart';
 
 class ButtonAddCart extends StatelessWidget {
   const ButtonAddCart({

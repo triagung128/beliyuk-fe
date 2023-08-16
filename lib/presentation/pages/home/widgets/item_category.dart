@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fic6_fe_beliyuk/common/global_variables.dart';
-import 'package:fic6_fe_beliyuk/data/models/category_model.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/category/category_page.dart';
+import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/data/models/category_model.dart';
+import 'package:beliyuk/presentation/pages/category/category_page.dart';
 import 'package:flutter/material.dart';
 
 class ItemCategory extends StatelessWidget {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/auth/auth_bloc.dart';
-import 'package:fic6_fe_beliyuk/common/enum_state.dart';
-import 'package:fic6_fe_beliyuk/common/global_variables.dart';
-import 'package:fic6_fe_beliyuk/data/models/requests/login_request_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/requests/register_request_model.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/auth/widgets/auth_text_form_field.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/auth/widgets/button_auth.dart';
+import 'package:beliyuk/bloc/auth/auth_bloc.dart';
+import 'package:beliyuk/common/enum_state.dart';
+import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/data/models/requests/login_request_model.dart';
+import 'package:beliyuk/data/models/requests/register_request_model.dart';
+import 'package:beliyuk/presentation/pages/auth/widgets/auth_text_form_field.dart';
+import 'package:beliyuk/presentation/pages/auth/widgets/button_auth.dart';
 
 enum AuthFormMode { login, signup }
 

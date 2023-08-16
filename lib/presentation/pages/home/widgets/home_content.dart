@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/home/home_bloc.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/home/widgets/home_list_banner_widget.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/home/widgets/home_list_category_widget.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/home/widgets/home_list_product_widget.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/home/widgets/home_search_widget.dart';
+import 'package:beliyuk/bloc/home/home_bloc.dart';
+import 'package:beliyuk/presentation/pages/home/widgets/home_list_banner_widget.dart';
+import 'package:beliyuk/presentation/pages/home/widgets/home_list_category_widget.dart';
+import 'package:beliyuk/presentation/pages/home/widgets/home_list_product_widget.dart';
+import 'package:beliyuk/presentation/pages/home/widgets/home_search_widget.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({

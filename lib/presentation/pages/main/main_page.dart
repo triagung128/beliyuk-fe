@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/auth/auth_bloc.dart';
-import 'package:fic6_fe_beliyuk/common/global_variables.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/auth/auth_page.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/home/home_page.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/profile/profile_page.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/transaction_history/transaction_history_page.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/wishlist/wishlist_page.dart';
+import 'package:beliyuk/bloc/auth/auth_bloc.dart';
+import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/presentation/pages/auth/auth_page.dart';
+import 'package:beliyuk/presentation/pages/home/home_page.dart';
+import 'package:beliyuk/presentation/pages/profile/profile_page.dart';
+import 'package:beliyuk/presentation/pages/transaction_history/transaction_history_page.dart';
+import 'package:beliyuk/presentation/pages/wishlist/wishlist_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

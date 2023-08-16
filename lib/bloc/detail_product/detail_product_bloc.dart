@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/common/enum_state.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/product_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/wishlist_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/requests/wishlist_request_model.dart';
+import 'package:beliyuk/common/enum_state.dart';
+import 'package:beliyuk/data/datasources/remote/product_remote_datasource.dart';
+import 'package:beliyuk/data/datasources/remote/wishlist_remote_datasource.dart';
+import 'package:beliyuk/data/models/product_model.dart';
+import 'package:beliyuk/data/models/requests/wishlist_request_model.dart';
 
 part 'detail_product_event.dart';
 part 'detail_product_state.dart';

@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:fic6_fe_beliyuk/common/global_variables.dart';
-import 'package:fic6_fe_beliyuk/data/models/requests/login_request_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/requests/register_request_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/responses/auth_response_model.dart';
+import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/data/models/requests/login_request_model.dart';
+import 'package:beliyuk/data/models/requests/register_request_model.dart';
+import 'package:beliyuk/data/models/responses/auth_response_model.dart';
 
 class AuthRemoteDatasource {
   Future<Either<String, AuthResponseModel>> login(

@@ -1,8 +1,8 @@
-import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
+import 'package:beliyuk/bloc/cart/cart_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/auth/auth_bloc.dart';
+import 'package:beliyuk/bloc/auth/auth_bloc.dart';
 import 'package:restart_app/restart_app.dart';
 
 class ProfilePage extends StatelessWidget {

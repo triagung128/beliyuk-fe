@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/detail_product/detail_product_bloc.dart';
-import 'package:fic6_fe_beliyuk/common/enum_state.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/local/auth_local_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/product_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/wishlist_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/detail_product/widgets/button_add_cart.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/detail_product/widgets/detail_product_content.dart';
+import 'package:beliyuk/bloc/detail_product/detail_product_bloc.dart';
+import 'package:beliyuk/common/enum_state.dart';
+import 'package:beliyuk/data/datasources/local/auth_local_datasource.dart';
+import 'package:beliyuk/data/datasources/remote/product_remote_datasource.dart';
+import 'package:beliyuk/data/datasources/remote/wishlist_remote_datasource.dart';
+import 'package:beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
+import 'package:beliyuk/presentation/pages/detail_product/widgets/button_add_cart.dart';
+import 'package:beliyuk/presentation/pages/detail_product/widgets/detail_product_content.dart';
 
 class DetailProductPage extends StatelessWidget {
   DetailProductPage({

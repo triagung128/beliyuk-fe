@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/common/enum_state.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/banner_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/category_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/product_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/models/responses/list_banner_response_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/responses/list_category_response_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/responses/list_product_response_model.dart';
+import 'package:beliyuk/common/enum_state.dart';
+import 'package:beliyuk/data/datasources/remote/banner_remote_datasource.dart';
+import 'package:beliyuk/data/datasources/remote/category_remote_datasource.dart';
+import 'package:beliyuk/data/datasources/remote/product_remote_datasource.dart';
+import 'package:beliyuk/data/models/responses/list_banner_response_model.dart';
+import 'package:beliyuk/data/models/responses/list_category_response_model.dart';
+import 'package:beliyuk/data/models/responses/list_product_response_model.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

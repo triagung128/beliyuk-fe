@@ -1,4 +1,4 @@
-import 'package:fic6_fe_beliyuk/data/models/user_model.dart';
+import 'package:beliyuk/data/models/user_model.dart';
 
 class AuthResponseModel {
   final String jwt;

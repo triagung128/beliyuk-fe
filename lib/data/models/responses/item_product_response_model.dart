@@ -1,5 +1,5 @@
-import 'package:fic6_fe_beliyuk/data/models/meta_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
+import 'package:beliyuk/data/models/meta_model.dart';
+import 'package:beliyuk/data/models/product_model.dart';
 
 class ItemProductResponseModel {
   final ProductModel data;

@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/detail_product/detail_product_bloc.dart';
-import 'package:fic6_fe_beliyuk/common/global_variables.dart';
-import 'package:fic6_fe_beliyuk/common/int_extensions.dart';
-import 'package:fic6_fe_beliyuk/data/models/product_model.dart';
-import 'package:fic6_fe_beliyuk/data/models/requests/wishlist_request_model.dart';
+import 'package:beliyuk/bloc/detail_product/detail_product_bloc.dart';
+import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/common/int_extensions.dart';
+import 'package:beliyuk/data/models/product_model.dart';
+import 'package:beliyuk/data/models/requests/wishlist_request_model.dart';
 
 class DetailProductContent extends StatelessWidget {
   const DetailProductContent({

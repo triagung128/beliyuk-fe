@@ -1,3 +1,3 @@
-# fic6_fe_beliyuk
+# beliyuk
 
 A new Flutter project.

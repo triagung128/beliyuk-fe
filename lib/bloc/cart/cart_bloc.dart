@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/data/datasources/local/cart_local_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/models/cart_model.dart';
+import 'package:beliyuk/data/datasources/local/cart_local_datasource.dart';
+import 'package:beliyuk/data/models/cart_model.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
