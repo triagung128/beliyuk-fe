@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/get_all_product/get_all_product_bloc.dart';
+import 'package:fic6_fe_beliyuk/bloc/home/home_bloc.dart';
+import 'package:fic6_fe_beliyuk/common/enum_state.dart';
 import 'package:fic6_fe_beliyuk/presentation/common_widgets/item_product.dart';
 
 class HomeListProductWidget extends StatelessWidget {
@@ -9,20 +10,17 @@ class HomeListProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetAllProductBloc, GetAllProductState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state is GetAllProductLoading) {
-          return const SizedBox(
-            height: 110,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
+        if (state.productsState == RequestState.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         }
 
-        if (state is GetAllProductLoaded) {
+        if (state.productsState == RequestState.loaded &&
+            state.products != null) {
           return GridView.builder(
-            key: const PageStorageKey<String>('homeListProduct'),
             padding: EdgeInsets.zero,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -32,21 +30,21 @@ class HomeListProductWidget extends StatelessWidget {
               crossAxisSpacing: 8,
               childAspectRatio: 1.0 / 1.5,
             ),
-            itemCount: state.data.data.length,
+            itemCount: state.products!.data.length,
             itemBuilder: (context, index) {
-              final product = state.data.data[index];
+              final product = state.products!.data[index];
               return ItemProduct(product: product);
             },
           );
         }
 
-        if (state is GetAllProductError) {
+        if (state.productsState == RequestState.error) {
           return Center(
-            child: Text(state.messageError),
+            child: Text(state.productsMessage),
           );
         }
 
-        return Container();
+        return const SizedBox();
       },
     );
   }

@@ -4,17 +4,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:fic6_fe_beliyuk/bloc/auth/auth_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:fic6_fe_beliyuk/bloc/get_all_banner/get_all_banner_bloc.dart';
-import 'package:fic6_fe_beliyuk/bloc/get_all_category/get_all_category_bloc.dart';
-import 'package:fic6_fe_beliyuk/bloc/get_all_product/get_all_product_bloc.dart';
-import 'package:fic6_fe_beliyuk/bloc/get_products_by_category_id/get_products_by_category_id_bloc.dart';
 import 'package:fic6_fe_beliyuk/bloc/search_product/search_product_bloc.dart';
 import 'package:fic6_fe_beliyuk/data/database/database_helper.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/local/auth_local_datasource.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/local/cart_local_datasource.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/remote/auth_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/banner_remote_datasource.dart';
-import 'package:fic6_fe_beliyuk/data/datasources/remote/category_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/data/datasources/remote/product_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/presentation/pages/main/main_page.dart';
 
@@ -31,22 +25,7 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => GetAllProductBloc(ProductRemoteDatasource())
-            ..add(DoGetAllProductEvent()),
-        ),
-        BlocProvider(
-          create: (_) => GetAllCategoryBloc(CategoryRemoteDatasource())
-            ..add(DoGetAllCategoryEvent()),
-        ),
-        BlocProvider(
-          create: (_) => GetAllBannerBloc(BannerRemoteDatasource())
-            ..add(DoGetAllBannerEvent()),
-        ),
-        BlocProvider(
           create: (_) => SearchProductBloc(ProductRemoteDatasource()),
-        ),
-        BlocProvider(
-          create: (_) => GetProductsByCategoryIdBloc(ProductRemoteDatasource()),
         ),
         BlocProvider(
           create: (_) => CartBloc(CartLocalDatasource(DatabaseHelper()))
@@ -56,7 +35,7 @@ class MainApp extends StatelessWidget {
           create: (_) => AuthBloc(
             remoteDatasource: AuthRemoteDatasource(),
             localDatasource: AuthLocalDatasource(),
-          ),
+          )..add(DoAuthCheckEvent()),
         ),
       ],
       child: const MaterialApp(

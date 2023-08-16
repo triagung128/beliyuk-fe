@@ -3,7 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/get_all_banner/get_all_banner_bloc.dart';
+import 'package:fic6_fe_beliyuk/bloc/home/home_bloc.dart';
+import 'package:fic6_fe_beliyuk/common/enum_state.dart';
 import 'package:fic6_fe_beliyuk/common/global_variables.dart';
 
 class HomeListBannerWidget extends StatefulWidget {
@@ -20,9 +21,9 @@ class _HomeListBannerWidgetState extends State<HomeListBannerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetAllBannerBloc, GetAllBannerState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state is GetAllBannerLoading) {
+        if (state.bannersState == RequestState.loading) {
           return const SizedBox(
             height: 144,
             child: Center(
@@ -31,14 +32,15 @@ class _HomeListBannerWidgetState extends State<HomeListBannerWidget> {
           );
         }
 
-        if (state is GetAllBannerLoaded) {
+        if (state.bannersState == RequestState.loaded &&
+            state.banners != null) {
           return Column(
             children: [
               CarouselSlider.builder(
                 carouselController: _carouselController,
-                itemCount: state.data.data.length,
+                itemCount: state.banners!.data.length,
                 itemBuilder: (context, index, realIndex) {
-                  final banner = state.data.data[index];
+                  final banner = state.banners!.data[index];
 
                   return CachedNetworkImage(
                     imageUrl:
@@ -75,42 +77,49 @@ class _HomeListBannerWidgetState extends State<HomeListBannerWidget> {
                   );
                 },
                 options: CarouselOptions(
-                  pageViewKey: const PageStorageKey('homeListBanner'),
+                  pageViewKey: const PageStorageKey<String>('listBanner'),
                   viewportFraction: 1,
                   autoPlay: true,
                   enlargeCenterPage: false,
                   height: 144,
-                  initialPage: 0,
                   onPageChanged: (index, x) {
                     setState(() => _currentIndex = index);
                   },
                 ),
               ),
               const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: state.data.data.asMap().entries.map((entry) {
-                  final bool isSelected = _currentIndex == entry.key;
+              Center(
+                child: SizedBox(
+                  height: 6,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: state.banners!.data.length,
+                    itemBuilder: (context, index) {
+                      final bool isSelected = _currentIndex == index;
 
-                  return GestureDetector(
-                    onTap: () => _carouselController.animateToPage(entry.key),
-                    child: Container(
-                      width: isSelected ? 12 : 6,
-                      height: 6,
-                      margin: const EdgeInsets.only(right: 6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: isSelected ? Colors.blue : Colors.grey,
-                      ),
-                    ),
-                  );
-                }).toList(),
+                      return GestureDetector(
+                        onTap: () => _carouselController.animateToPage(index),
+                        child: Container(
+                          height: 6,
+                          width: isSelected ? 12 : 6,
+                          margin: const EdgeInsets.only(right: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: isSelected ? Colors.blue : Colors.grey,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             ],
           );
         }
 
-        if (state is GetAllBannerError) {
+        if (state.bannersState == RequestState.error) {
           return Container(
             height: 144,
             width: MediaQuery.of(context).size.width,
@@ -127,13 +136,13 @@ class _HomeListBannerWidgetState extends State<HomeListBannerWidget> {
                   size: 38,
                 ),
                 const SizedBox(height: 8),
-                Text(state.messageError),
+                Text(state.bannersMessage),
               ],
             ),
           );
         }
 
-        return Container(height: 144);
+        return const SizedBox(height: 144);
       },
     );
   }

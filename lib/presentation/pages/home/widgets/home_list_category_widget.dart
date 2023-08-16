@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic6_fe_beliyuk/bloc/get_all_category/get_all_category_bloc.dart';
+import 'package:fic6_fe_beliyuk/bloc/home/home_bloc.dart';
+import 'package:fic6_fe_beliyuk/common/enum_state.dart';
+import 'package:fic6_fe_beliyuk/data/models/category_model.dart';
 import 'package:fic6_fe_beliyuk/presentation/pages/home/widgets/item_category.dart';
 
 class HomeListCategoryWidget extends StatelessWidget {
@@ -11,22 +13,23 @@ class HomeListCategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 120,
-      child: BlocBuilder<GetAllCategoryBloc, GetAllCategoryState>(
+      child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          if (state is GetAllCategoryLoading) {
+          if (state.categoriesState == RequestState.loading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
-          if (state is GetAllCategoryLoaded) {
+          if (state.categoriesState == RequestState.loaded &&
+              state.categories != null) {
             return ListView.builder(
               key: const PageStorageKey<String>('homeListCategory'),
-              itemCount: state.data.data.length,
+              itemCount: state.categories!.data.length,
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                final category = state.data.data[index];
+                final CategoryModel category = state.categories!.data[index];
 
                 return ItemCategory(
                   category: category,
@@ -36,13 +39,13 @@ class HomeListCategoryWidget extends StatelessWidget {
             );
           }
 
-          if (state is GetAllCategoryError) {
+          if (state.categoriesState == RequestState.error) {
             return Center(
-              child: Text(state.messageError),
+              child: Text(state.categoriesMessage),
             );
           }
 
-          return Container(height: 110);
+          return const SizedBox();
         },
       ),
     );

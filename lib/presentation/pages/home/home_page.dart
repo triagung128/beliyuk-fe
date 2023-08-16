@@ -1,62 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:fic6_fe_beliyuk/bloc/home/home_bloc.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/remote/banner_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/remote/category_remote_datasource.dart';
+import 'package:fic6_fe_beliyuk/data/datasources/remote/product_remote_datasource.dart';
 import 'package:fic6_fe_beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/home/widgets/home_list_banner_widget.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/home/widgets/home_list_category_widget.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/home/widgets/home_list_product_widget.dart';
-import 'package:fic6_fe_beliyuk/presentation/pages/home/widgets/home_search_widget.dart';
+import 'package:fic6_fe_beliyuk/presentation/pages/home/widgets/home_content.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: const CustomAppBarWithCartIcon(
-        automaticallyImplyLeading: false,
-        title: Text('BeliYuk !'),
-      ),
-      body: Column(
-        children: [
-          const HomeSearchWidget(),
-          const SizedBox(height: 16),
-          Expanded(
-            child: ListView(
-              key: const PageStorageKey<String>('homePage'),
-              padding: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-                bottom: 16,
-              ),
-              children: const [
-                HomeListBannerWidget(
-                  key: PageStorageKey('asd'),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Kategori',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 12),
-                HomeListCategoryWidget(),
-                SizedBox(height: 16),
-                Text(
-                  'List Produk',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 12),
-                HomeListProductWidget(),
-              ],
-            ),
-          ),
-        ],
+    return BlocProvider(
+      create: (_) => HomeBloc(
+        bannerRemoteDatasource: BannerRemoteDatasource(),
+        categoryRemoteDatasource: CategoryRemoteDatasource(),
+        productRemoteDatasource: ProductRemoteDatasource(),
+      )
+        ..add(DoGetAllBanners())
+        ..add(DoGetAllCategories())
+        ..add(DoGetAllProducts()),
+      child: const Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: CustomAppBarWithCartIcon(
+          automaticallyImplyLeading: false,
+          title: Text('BeliYuk !'),
+        ),
+        body: HomeContent(),
       ),
     );
   }
