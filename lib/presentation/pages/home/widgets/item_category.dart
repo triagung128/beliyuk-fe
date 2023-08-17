@@ -1,8 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:beliyuk/common/global_variables.dart';
-import 'package:beliyuk/data/models/category_model.dart';
-import 'package:beliyuk/presentation/pages/category/category_page.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
+
+import 'package:beliyuk/common/constants.dart';
+import 'package:beliyuk/domain/entities/category.dart';
+import 'package:beliyuk/presentation/pages/category/category_page.dart';
 
 class ItemCategory extends StatelessWidget {
   const ItemCategory({
@@ -11,7 +13,7 @@ class ItemCategory extends StatelessWidget {
     required this.index,
   });
 
-  final CategoryModel category;
+  final Category category;
   final int index;
 
   @override
@@ -35,8 +37,7 @@ class ItemCategory extends StatelessWidget {
           child: Column(
             children: [
               CachedNetworkImage(
-                imageUrl:
-                    '${GlobalVariables.baseUrl}${category.attributes.logo.data.attributes.url}',
+                imageUrl: '${Urls.baseUrl}${category.logo}',
                 imageBuilder: (_, imageProvider) => Container(
                   height: 60,
                   width: 60,
@@ -66,7 +67,7 @@ class ItemCategory extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                category.attributes.name,
+                category.name,
                 maxLines: 2,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,

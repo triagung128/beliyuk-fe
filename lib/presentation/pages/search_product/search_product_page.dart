@@ -1,16 +1,18 @@
-import 'package:beliyuk/bloc/search_product/search_product_bloc.dart';
-import 'package:beliyuk/data/datasources/remote/product_remote_datasource.dart';
-import 'package:beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
-import 'package:beliyuk/presentation/common_widgets/item_product.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:beliyuk/injection.dart' as di;
+import 'package:beliyuk/presentation/blocs/search_product/search_product_bloc.dart';
+import 'package:beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
+import 'package:beliyuk/presentation/common_widgets/item_product.dart';
+
 class SearchProductPage extends StatefulWidget {
-  final String productName;
+  final String query;
 
   const SearchProductPage({
     super.key,
-    required this.productName,
+    required this.query,
   });
 
   @override
@@ -23,14 +25,14 @@ class _SearchProductPageState extends State<SearchProductPage> {
   @override
   void initState() {
     super.initState();
-    _searchController.text = widget.productName;
+    _searchController.text = widget.query;
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => SearchProductBloc(ProductRemoteDatasource())
-        ..add(DoSearchProductEvent(productName: widget.productName)),
+      create: (_) => di.locator<SearchProductBloc>()
+        ..add(DoSearchProductEvent(query: widget.query)),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: const CustomAppBarWithCartIcon(
@@ -46,8 +48,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                     controller: _searchController,
                     onFieldSubmitted: (_) {
                       context.read<SearchProductBloc>().add(
-                          DoSearchProductEvent(
-                              productName: _searchController.text));
+                          DoSearchProductEvent(query: _searchController.text));
                     },
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.search),
@@ -76,7 +77,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                   }
 
                   if (state is SearchProductLoaded) {
-                    if (state.data.data.isNotEmpty) {
+                    if (state.products.isNotEmpty) {
                       return GridView.builder(
                         padding: const EdgeInsets.only(
                           left: 16,
@@ -90,9 +91,9 @@ class _SearchProductPageState extends State<SearchProductPage> {
                           crossAxisSpacing: 8,
                           childAspectRatio: 1.0 / 1.3,
                         ),
-                        itemCount: state.data.data.length,
+                        itemCount: state.products.length,
                         itemBuilder: (context, index) {
-                          final product = state.data.data[index];
+                          final product = state.products[index];
                           return ItemProduct(product: product);
                         },
                       );
@@ -119,7 +120,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
 
                   if (state is SearchProductError) {
                     return Center(
-                      child: Text(state.messageError),
+                      child: Text(state.message),
                     );
                   }
 

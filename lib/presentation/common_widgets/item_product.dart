@@ -1,13 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'package:beliyuk/common/global_variables.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
+import 'package:beliyuk/common/constants.dart';
 import 'package:beliyuk/common/int_extensions.dart';
-import 'package:beliyuk/data/models/product_model.dart';
+import 'package:beliyuk/domain/entities/product.dart';
 import 'package:beliyuk/presentation/pages/detail_product/detail_product_page.dart';
 
 class ItemProduct extends StatelessWidget {
-  final ProductModel product;
+  final Product product;
 
   const ItemProduct({
     super.key,
@@ -35,8 +36,7 @@ class ItemProduct extends StatelessWidget {
           children: [
             Expanded(
               child: CachedNetworkImage(
-                imageUrl:
-                    '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}',
+                imageUrl: '${Urls.baseUrl}${product.images[0]}',
                 imageBuilder: (context, imageProvider) => Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
@@ -74,13 +74,13 @@ class ItemProduct extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.attributes.name,
+                    product.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    product.attributes.price.intToFormatRupiah,
+                    product.price.intToFormatRupiah,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/category/category_bloc.dart';
-import 'package:beliyuk/data/datasources/remote/product_remote_datasource.dart';
-import 'package:beliyuk/data/models/category_model.dart';
+import 'package:beliyuk/domain/entities/category.dart';
+import 'package:beliyuk/injection.dart' as di;
+import 'package:beliyuk/presentation/blocs/category/category_bloc.dart';
 import 'package:beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
 import 'package:beliyuk/presentation/common_widgets/item_product.dart';
 
@@ -13,12 +14,12 @@ class CategoryPage extends StatelessWidget {
     required this.category,
   });
 
-  final CategoryModel category;
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CategoryBloc(ProductRemoteDatasource())
+      create: (_) => di.locator<CategoryBloc>()
         ..add(DoGetAllProductsByCategoryIdEvent(category.id)),
       child: Scaffold(
         appBar: CustomAppBarWithCartIcon(
@@ -31,7 +32,7 @@ class CategoryPage extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                category.attributes.name,
+                category.name,
                 style: const TextStyle(fontSize: 18),
               ),
             ],
@@ -46,7 +47,7 @@ class CategoryPage extends StatelessWidget {
             }
 
             if (state is CategoryLoaded) {
-              if (state.data.data.isNotEmpty) {
+              if (state.data.isNotEmpty) {
                 return GridView.builder(
                   padding: const EdgeInsets.all(16),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -55,9 +56,9 @@ class CategoryPage extends StatelessWidget {
                     crossAxisSpacing: 8,
                     childAspectRatio: 1.0 / 1.3,
                   ),
-                  itemCount: state.data.data.length,
+                  itemCount: state.data.length,
                   itemBuilder: (context, index) {
-                    final product = state.data.data[index];
+                    final product = state.data[index];
                     return ItemProduct(product: product);
                   },
                 );
@@ -84,7 +85,7 @@ class CategoryPage extends StatelessWidget {
 
             if (state is CategoryError) {
               return Center(
-                child: Text(state.messageError),
+                child: Text(state.message),
               );
             }
 

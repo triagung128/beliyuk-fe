@@ -1,9 +1,10 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/auth/auth_bloc.dart';
 import 'package:beliyuk/common/enum_state.dart';
+import 'package:beliyuk/presentation/blocs/auth/auth_bloc.dart';
 
 class ButtonAuth extends StatelessWidget {
   const ButtonAuth({

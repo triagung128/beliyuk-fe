@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/home/home_bloc.dart';
 import 'package:beliyuk/common/enum_state.dart';
-import 'package:beliyuk/data/models/category_model.dart';
+import 'package:beliyuk/domain/entities/category.dart';
+import 'package:beliyuk/presentation/blocs/home/home_bloc.dart';
 import 'package:beliyuk/presentation/pages/home/widgets/item_category.dart';
 
 class HomeListCategoryWidget extends StatelessWidget {
@@ -22,14 +23,14 @@ class HomeListCategoryWidget extends StatelessWidget {
           }
 
           if (state.categoriesState == RequestState.loaded &&
-              state.categories != null) {
+              state.categories.isNotEmpty) {
             return ListView.builder(
               key: const PageStorageKey<String>('homeListCategory'),
-              itemCount: state.categories!.data.length,
+              itemCount: state.categories.length,
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                final CategoryModel category = state.categories!.data[index];
+                final Category category = state.categories[index];
 
                 return ItemCategory(
                   category: category,

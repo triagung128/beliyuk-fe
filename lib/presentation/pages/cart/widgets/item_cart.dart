@@ -1,11 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/common/constants.dart';
 import 'package:beliyuk/common/int_extensions.dart';
-import 'package:beliyuk/data/models/cart_model.dart';
+import 'package:beliyuk/domain/entities/cart.dart';
+import 'package:beliyuk/presentation/blocs/cart/cart_bloc.dart';
 
 class ItemCart extends StatelessWidget {
   const ItemCart({
@@ -13,7 +14,7 @@ class ItemCart extends StatelessWidget {
     required this.cart,
   });
 
-  final CartModel cart;
+  final Cart cart;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ItemCart extends StatelessWidget {
       child: Row(
         children: [
           CachedNetworkImage(
-            imageUrl: '${GlobalVariables.baseUrl}${cart.image}',
+            imageUrl: '${Urls.baseUrl}${cart.image}',
             imageBuilder: (_, imageProvider) => Container(
               height: 110,
               width: 110,

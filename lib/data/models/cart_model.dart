@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'package:beliyuk/domain/entities/cart.dart';
+
 class CartModel extends Equatable {
   final int id;
   final String name;
@@ -12,19 +14,17 @@ class CartModel extends Equatable {
     required this.name,
     required this.price,
     required this.image,
-    this.quantity = 1,
+    this.quantity = 0,
   });
 
   @override
-  List<Object> get props {
-    return [
-      id,
-      name,
-      price,
-      image,
-      quantity,
-    ];
-  }
+  List<Object> get props => [
+        id,
+        name,
+        price,
+        image,
+        quantity,
+      ];
 
   Map<String, dynamic> toMap() => {
         'id': id,
@@ -48,5 +48,21 @@ class CartModel extends Equatable {
         price: map['price'],
         image: map['image'],
         quantity: map['quantity'],
+      );
+
+  Cart toEntity() => Cart(
+        id: id,
+        name: name,
+        price: price,
+        image: image,
+        quantity: quantity,
+      );
+
+  factory CartModel.fromEntity(Cart cart) => CartModel(
+        id: cart.id,
+        name: cart.name,
+        price: cart.price,
+        image: cart.image,
+        quantity: cart.quantity == 0 ? 1 : cart.quantity,
       );
 }

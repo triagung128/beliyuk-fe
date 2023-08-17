@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/auth/auth_bloc.dart';
 import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/presentation/blocs/auth/auth_bloc.dart';
 import 'package:beliyuk/presentation/pages/auth/auth_page.dart';
 import 'package:beliyuk/presentation/pages/home/home_page.dart';
 import 'package:beliyuk/presentation/pages/profile/profile_page.dart';
@@ -72,7 +73,11 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        _token = state.token;
+        if (state.user != null) {
+          _token = state.user!.token;
+        } else {
+          _token = null;
+        }
       },
       child: Scaffold(
         body: _listWidget[_bottomNavIndex],

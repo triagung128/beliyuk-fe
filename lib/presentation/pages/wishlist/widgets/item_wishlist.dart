@@ -1,13 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:beliyuk/bloc/wishlist/wishlist_bloc.dart';
-import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/common/constants.dart';
 import 'package:beliyuk/common/int_extensions.dart';
-import 'package:beliyuk/data/models/cart_model.dart';
-import 'package:beliyuk/data/models/wishlist_model.dart';
+import 'package:beliyuk/domain/entities/cart.dart';
+import 'package:beliyuk/domain/entities/wishlist.dart';
+import 'package:beliyuk/presentation/blocs/cart/cart_bloc.dart';
+import 'package:beliyuk/presentation/blocs/wishlist/wishlist_bloc.dart';
 import 'package:beliyuk/presentation/pages/detail_product/detail_product_page.dart';
 
 class ItemWishlist extends StatelessWidget {
@@ -16,7 +17,7 @@ class ItemWishlist extends StatelessWidget {
     required this.wishlist,
   });
 
-  final WishlistModel wishlist;
+  final Wishlist wishlist;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,7 @@ class ItemWishlist extends StatelessWidget {
             children: [
               Expanded(
                 child: CachedNetworkImage(
-                  imageUrl:
-                      '${GlobalVariables.baseUrl}${wishlist.attributes.image}',
+                  imageUrl: '${Urls.baseUrl}${wishlist.image}',
                   imageBuilder: (context, imageProvider) => Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
@@ -69,7 +69,7 @@ class ItemWishlist extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (_) => DetailProductPage(
-                              productId: wishlist.attributes.productId)));
+                              productId: wishlist.productId)));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8),
@@ -77,13 +77,13 @@ class ItemWishlist extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        wishlist.attributes.name,
+                        wishlist.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        wishlist.attributes.price.intToFormatRupiah,
+                        wishlist.price.intToFormatRupiah,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -94,11 +94,11 @@ class ItemWishlist extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         child: OutlinedButton.icon(
                           onPressed: () {
-                            final CartModel cart = CartModel(
-                              id: wishlist.attributes.productId,
-                              name: wishlist.attributes.name,
-                              price: wishlist.attributes.price,
-                              image: wishlist.attributes.image,
+                            final Cart cart = Cart(
+                              id: wishlist.productId,
+                              name: wishlist.name,
+                              price: wishlist.price,
+                              image: wishlist.image,
                             );
                             context.read<CartBloc>().add(AddCartEvent(cart));
                           },
@@ -132,7 +132,7 @@ class ItemWishlist extends StatelessWidget {
               onTap: () {
                 context
                     .read<WishlistBloc>()
-                    .add(DoRemoveWishlistEvent(wishlist.attributes.productId));
+                    .add(DoRemoveWishlistEvent(wishlist.productId));
               },
               customBorder: const CircleBorder(),
               child: const Padding(

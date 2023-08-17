@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:beliyuk/data/models/cart_model.dart';
-import 'package:beliyuk/data/models/product_model.dart';
+import 'package:beliyuk/domain/entities/cart.dart';
+import 'package:beliyuk/domain/entities/product.dart';
+import 'package:beliyuk/presentation/blocs/cart/cart_bloc.dart';
 
 class ButtonAddCart extends StatelessWidget {
   const ButtonAddCart({
@@ -11,7 +12,7 @@ class ButtonAddCart extends StatelessWidget {
     required this.product,
   });
 
-  final ProductModel product;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +30,11 @@ class ButtonAddCart extends StatelessWidget {
         margin: const EdgeInsets.all(16),
         child: ElevatedButton(
           onPressed: () {
-            final cartItem = CartModel(
+            final Cart cartItem = Cart(
               id: product.id,
-              name: product.attributes.name,
-              price: product.attributes.price,
-              image: product.attributes.images.data[0].attributes.url,
+              name: product.name,
+              price: product.price,
+              image: product.images[0],
             );
 
             context.read<CartBloc>().add(AddCartEvent(cartItem));

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:beliyuk/bloc/auth/auth_bloc.dart';
-import 'package:beliyuk/bloc/cart/cart_bloc.dart';
-import 'package:beliyuk/data/database/database_helper.dart';
-import 'package:beliyuk/data/datasources/local/auth_local_datasource.dart';
-import 'package:beliyuk/data/datasources/local/cart_local_datasource.dart';
-import 'package:beliyuk/data/datasources/remote/auth_remote_datasource.dart';
+import 'package:beliyuk/injection.dart' as di;
+import 'package:beliyuk/presentation/blocs/auth/auth_bloc.dart';
+import 'package:beliyuk/presentation/blocs/cart/cart_bloc.dart';
 import 'package:beliyuk/presentation/pages/main/main_page.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
+  di.init();
   runApp(const MainApp());
 }
 
@@ -23,14 +22,10 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => CartBloc(CartLocalDatasource(DatabaseHelper()))
-            ..add(DoGetAllCartEvent()),
+          create: (_) => di.locator<CartBloc>()..add(DoGetAllCartEvent()),
         ),
         BlocProvider(
-          create: (_) => AuthBloc(
-            remoteDatasource: AuthRemoteDatasource(),
-            localDatasource: AuthLocalDatasource(),
-          )..add(DoAuthCheckEvent()),
+          create: (_) => di.locator<AuthBloc>()..add(DoAuthCheckEvent()),
         ),
       ],
       child: const MaterialApp(

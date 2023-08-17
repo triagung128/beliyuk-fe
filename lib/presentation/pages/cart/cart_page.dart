@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/cart/cart_bloc.dart';
 import 'package:beliyuk/common/int_extensions.dart';
+import 'package:beliyuk/presentation/blocs/cart/cart_bloc.dart';
 import 'package:beliyuk/presentation/pages/auth/auth_page.dart';
 import 'package:beliyuk/presentation/pages/cart/widgets/button_checkout.dart';
 import 'package:beliyuk/presentation/pages/cart/widgets/item_cart.dart';

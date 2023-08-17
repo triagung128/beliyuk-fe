@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/wishlist/wishlist_bloc.dart';
-import 'package:beliyuk/data/datasources/local/auth_local_datasource.dart';
-import 'package:beliyuk/data/datasources/remote/wishlist_remote_datasource.dart';
-import 'package:beliyuk/data/models/wishlist_model.dart';
+import 'package:beliyuk/domain/entities/wishlist.dart';
+import 'package:beliyuk/injection.dart' as di;
+import 'package:beliyuk/presentation/blocs/wishlist/wishlist_bloc.dart';
 import 'package:beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
 import 'package:beliyuk/presentation/pages/wishlist/widgets/item_wishlist.dart';
 
@@ -14,9 +14,7 @@ class WishlistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          WishlistBloc(WishlistRemoteDatasource(AuthLocalDatasource()))
-            ..add(DoGetAllWishlistEvent()),
+      create: (_) => di.locator<WishlistBloc>()..add(DoGetAllWishlistEvent()),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: const CustomAppBarWithCartIcon(
@@ -32,7 +30,7 @@ class WishlistPage extends StatelessWidget {
             }
 
             if (state is WishlistLoaded) {
-              if (state.wishlist.data.isNotEmpty) {
+              if (state.data.isNotEmpty) {
                 return RefreshIndicator(
                   onRefresh: () async {
                     await Future.delayed(
@@ -40,7 +38,7 @@ class WishlistPage extends StatelessWidget {
                       () {
                         context
                             .read<WishlistBloc>()
-                            .add(DoRefreshGetAllWishlistEvent());
+                            .add(DoGetAllWishlistEvent());
                       },
                     );
                   },
@@ -53,9 +51,9 @@ class WishlistPage extends StatelessWidget {
                       crossAxisSpacing: 16,
                       childAspectRatio: 1.0 / 1.6,
                     ),
-                    itemCount: state.wishlist.data.length,
+                    itemCount: state.data.length,
                     itemBuilder: (context, index) {
-                      final WishlistModel wishlist = state.wishlist.data[index];
+                      final Wishlist wishlist = state.data[index];
                       return ItemWishlist(wishlist: wishlist);
                     },
                   ),

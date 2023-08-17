@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/auth/auth_bloc.dart';
 import 'package:beliyuk/common/enum_state.dart';
 import 'package:beliyuk/common/global_variables.dart';
-import 'package:beliyuk/data/models/requests/login_request_model.dart';
-import 'package:beliyuk/data/models/requests/register_request_model.dart';
+import 'package:beliyuk/presentation/blocs/auth/auth_bloc.dart';
 import 'package:beliyuk/presentation/pages/auth/widgets/auth_text_form_field.dart';
 import 'package:beliyuk/presentation/pages/auth/widgets/button_auth.dart';
 
@@ -34,22 +33,18 @@ class _AuthPageState extends State<AuthPage> {
       TextEditingController();
 
   void _login() {
-    final LoginRequestModel request = LoginRequestModel(
-      identifier: _emailController.text,
-      password: _passwordController.text,
-    );
-
-    context.read<AuthBloc>().add(DoLoginEvent(request: request));
+    context.read<AuthBloc>().add(DoLoginEvent(
+          identifier: _emailController.text,
+          password: _passwordController.text,
+        ));
   }
 
   void _register() {
-    final RegisterRequestModel request = RegisterRequestModel(
-      username: _emailController.text,
-      password: _passwordController.text,
-      email: _emailController.text,
-    );
-
-    context.read<AuthBloc>().add(DoRegisterEvent(request: request));
+    context.read<AuthBloc>().add(DoRegisterEvent(
+          username: _emailController.text,
+          email: _emailController.text,
+          password: _passwordController.text,
+        ));
   }
 
   void _submit() {

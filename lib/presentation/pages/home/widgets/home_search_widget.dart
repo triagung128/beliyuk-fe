@@ -20,7 +20,7 @@ class HomeSearchWidget extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (_) => SearchProductPage(productName: value)));
+                    builder: (_) => SearchProductPage(query: value)));
           }
         },
         decoration: InputDecoration(

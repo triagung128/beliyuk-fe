@@ -1,12 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/detail_product/detail_product_bloc.dart';
-import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/common/constants.dart';
 import 'package:beliyuk/common/int_extensions.dart';
-import 'package:beliyuk/data/models/product_model.dart';
-import 'package:beliyuk/data/models/requests/wishlist_request_model.dart';
+import 'package:beliyuk/domain/entities/product.dart';
+import 'package:beliyuk/presentation/blocs/detail_product/detail_product_bloc.dart';
 
 class DetailProductContent extends StatelessWidget {
   const DetailProductContent({
@@ -15,7 +15,7 @@ class DetailProductContent extends StatelessWidget {
     super.key,
   });
 
-  final ProductModel product;
+  final Product product;
   final bool isAddedToWishlist;
 
   @override
@@ -24,8 +24,7 @@ class DetailProductContent extends StatelessWidget {
       child: Column(
         children: [
           CachedNetworkImage(
-            imageUrl:
-                '${GlobalVariables.baseUrl}${product.attributes.images.data[0].attributes.url}',
+            imageUrl: '${Urls.baseUrl}${product.images[0]}',
             imageBuilder: (context, imageProvider) => Container(
               width: MediaQuery.of(context).size.width,
               height: 350,
@@ -63,7 +62,7 @@ class DetailProductContent extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      product.attributes.price.intToFormatRupiah,
+                      product.price.intToFormatRupiah,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -72,17 +71,14 @@ class DetailProductContent extends StatelessWidget {
                     IconButton(
                       onPressed: () {
                         if (!isAddedToWishlist) {
-                          final requestData = WishlistRequestModel(
-                            productId: product.id,
-                            name: product.attributes.name,
-                            price: product.attributes.price,
-                            image: product
-                                .attributes.images.data.first.attributes.url,
-                          );
-
                           context
                               .read<DetailProductBloc>()
-                              .add(AddWishlistDetailProductEvent(requestData));
+                              .add(AddWishlistDetailProductEvent(
+                                productId: product.id,
+                                name: product.name,
+                                price: product.price,
+                                image: product.images[0],
+                              ));
                         } else {
                           context.read<DetailProductBloc>().add(
                               RemoveWishlistDetailProductEvent(product.id));
@@ -99,7 +95,7 @@ class DetailProductContent extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  product.attributes.name,
+                  product.name,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -120,13 +116,13 @@ class DetailProductContent extends StatelessWidget {
                     TableRow(
                       children: [
                         const Text('Berat satuan'),
-                        Text(product.attributes.weight.convertUnitWeight),
+                        Text(product.weight.convertUnitWeight),
                       ],
                     ),
                     TableRow(
                       children: [
                         const Text('Kategori'),
-                        Text(product.attributes.category.data.attributes.name),
+                        Text(product.category.name),
                       ],
                     ),
                   ],
@@ -139,7 +135,7 @@ class DetailProductContent extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Text(product.attributes.description),
+                Text(product.description),
               ],
             ),
           ),

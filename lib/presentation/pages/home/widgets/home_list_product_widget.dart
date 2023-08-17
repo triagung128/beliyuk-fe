@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/home/home_bloc.dart';
 import 'package:beliyuk/common/enum_state.dart';
+import 'package:beliyuk/presentation/blocs/home/home_bloc.dart';
 import 'package:beliyuk/presentation/common_widgets/item_product.dart';
 
 class HomeListProductWidget extends StatelessWidget {
@@ -19,7 +20,7 @@ class HomeListProductWidget extends StatelessWidget {
         }
 
         if (state.productsState == RequestState.loaded &&
-            state.products != null) {
+            state.products.isNotEmpty) {
           return GridView.builder(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
@@ -30,9 +31,9 @@ class HomeListProductWidget extends StatelessWidget {
               crossAxisSpacing: 8,
               childAspectRatio: 1.0 / 1.5,
             ),
-            itemCount: state.products!.data.length,
+            itemCount: state.products.length,
             itemBuilder: (context, index) {
-              final product = state.products!.data[index];
+              final product = state.products[index];
               return ItemProduct(product: product);
             },
           );

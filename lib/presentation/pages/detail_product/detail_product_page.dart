@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/detail_product/detail_product_bloc.dart';
 import 'package:beliyuk/common/enum_state.dart';
-import 'package:beliyuk/data/datasources/local/auth_local_datasource.dart';
-import 'package:beliyuk/data/datasources/remote/product_remote_datasource.dart';
-import 'package:beliyuk/data/datasources/remote/wishlist_remote_datasource.dart';
+import 'package:beliyuk/injection.dart' as di;
+import 'package:beliyuk/presentation/blocs/detail_product/detail_product_bloc.dart';
 import 'package:beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
 import 'package:beliyuk/presentation/pages/detail_product/widgets/button_add_cart.dart';
 import 'package:beliyuk/presentation/pages/detail_product/widgets/detail_product_content.dart';
@@ -24,11 +23,7 @@ class DetailProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => DetailProductBloc(
-        productRemoteDatasource: ProductRemoteDatasource(),
-        wishlistRemoteDatasource:
-            WishlistRemoteDatasource(AuthLocalDatasource()),
-      )
+      create: (_) => di.locator<DetailProductBloc>()
         ..add(FetchDetailProductEvent(productId))
         ..add(LoadWishlistStatusEvent(productId)),
       child: ScaffoldMessenger(

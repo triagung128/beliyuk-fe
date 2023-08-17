@@ -1,11 +1,12 @@
+import 'package:flutter/material.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/bloc/home/home_bloc.dart';
+import 'package:beliyuk/common/constants.dart';
 import 'package:beliyuk/common/enum_state.dart';
-import 'package:beliyuk/common/global_variables.dart';
+import 'package:beliyuk/presentation/blocs/home/home_bloc.dart';
 
 class HomeListBannerWidget extends StatefulWidget {
   const HomeListBannerWidget({super.key});
@@ -33,18 +34,17 @@ class _HomeListBannerWidgetState extends State<HomeListBannerWidget> {
         }
 
         if (state.bannersState == RequestState.loaded &&
-            state.banners != null) {
+            state.banners.isNotEmpty) {
           return Column(
             children: [
               CarouselSlider.builder(
                 carouselController: _carouselController,
-                itemCount: state.banners!.data.length,
+                itemCount: state.banners.length,
                 itemBuilder: (context, index, realIndex) {
-                  final banner = state.banners!.data[index];
+                  final banner = state.banners[index];
 
                   return CachedNetworkImage(
-                    imageUrl:
-                        '${GlobalVariables.baseUrl}${banner.attributes.image.data.attributes.url}',
+                    imageUrl: '${Urls.baseUrl}${banner.image}',
                     imageBuilder: (context, imageProvider) => Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.symmetric(horizontal: 5),
@@ -88,32 +88,24 @@ class _HomeListBannerWidgetState extends State<HomeListBannerWidget> {
                 ),
               ),
               const SizedBox(height: 12),
-              Center(
-                child: SizedBox(
-                  height: 6,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: state.banners!.data.length,
-                    itemBuilder: (context, index) {
-                      final bool isSelected = _currentIndex == index;
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: state.banners.asMap().entries.map((entry) {
+                  final bool isSelected = _currentIndex == entry.key;
 
-                      return GestureDetector(
-                        onTap: () => _carouselController.animateToPage(index),
-                        child: Container(
-                          height: 6,
-                          width: isSelected ? 12 : 6,
-                          margin: const EdgeInsets.only(right: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: isSelected ? Colors.blue : Colors.grey,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                  return GestureDetector(
+                    onTap: () => _carouselController.animateToPage(entry.key),
+                    child: Container(
+                      width: isSelected ? 12 : 6,
+                      height: 6,
+                      margin: const EdgeInsets.only(right: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: isSelected ? Colors.blue : Colors.grey,
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
             ],
           );
