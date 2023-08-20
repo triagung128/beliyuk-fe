@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:beliyuk/common/int_extensions.dart';
+import 'package:beliyuk/domain/entities/cart.dart';
+import 'package:beliyuk/presentation/blocs/auth/auth_bloc.dart';
 import 'package:beliyuk/presentation/blocs/cart/cart_bloc.dart';
 import 'package:beliyuk/presentation/pages/auth/auth_page.dart';
 import 'package:beliyuk/presentation/pages/cart/widgets/button_checkout.dart';
 import 'package:beliyuk/presentation/pages/cart/widgets/item_cart.dart';
+import 'package:beliyuk/presentation/pages/checkout/checkout_page.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -82,20 +85,36 @@ class CartPage extends StatelessWidget {
               margin: const EdgeInsets.all(16),
               child: BlocBuilder<CartBloc, CartState>(
                 builder: (context, state) {
-                  if (state is CartLoaded) {
-                    if (state.items.isNotEmpty) {
-                      return ButtonCheckout(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return const AuthPage();
-                            },
-                          ));
-                        },
-                      );
-                    } else {
-                      return const ButtonCheckout(onPressed: null);
-                    }
+                  if (state is CartLoaded && state.items.isNotEmpty) {
+                    final List<Cart> cartItems = state.items;
+                    final int totalPrice = state.totalPrice;
+
+                    return BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        return ButtonCheckout(
+                          onPressed: () {
+                            if (state.user != null) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => CheckoutPage(
+                                    cartItems: cartItems,
+                                    totalPrice: totalPrice,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const AuthPage(),
+                                ),
+                              );
+                            }
+                          },
+                        );
+                      },
+                    );
                   }
 
                   return const ButtonCheckout(onPressed: null);
