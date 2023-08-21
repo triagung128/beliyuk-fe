@@ -10,6 +10,7 @@ class HomeState extends Equatable {
   final List<Product> products;
   final RequestState productsState;
   final String productsMessage;
+  final int indexCarouselSliderIndicator;
 
   const HomeState({
     required this.banners,
@@ -21,6 +22,7 @@ class HomeState extends Equatable {
     required this.products,
     required this.productsState,
     required this.productsMessage,
+    required this.indexCarouselSliderIndicator,
   });
 
   HomeState copyWith({
@@ -33,6 +35,7 @@ class HomeState extends Equatable {
     List<Product>? products,
     RequestState? productsState,
     String? productsMessage,
+    int? indexCarouselSliderIndicator,
   }) =>
       HomeState(
         banners: banners ?? this.banners,
@@ -44,6 +47,8 @@ class HomeState extends Equatable {
         products: products ?? this.products,
         productsState: productsState ?? this.productsState,
         productsMessage: productsMessage ?? this.productsMessage,
+        indexCarouselSliderIndicator:
+            indexCarouselSliderIndicator ?? this.indexCarouselSliderIndicator,
       );
 
   factory HomeState.initial() => const HomeState(
@@ -56,6 +61,7 @@ class HomeState extends Equatable {
         products: [],
         productsState: RequestState.initial,
         productsMessage: '',
+        indexCarouselSliderIndicator: 0,
       );
 
   @override
@@ -69,5 +75,6 @@ class HomeState extends Equatable {
         products,
         productsState,
         productsMessage,
+        indexCarouselSliderIndicator,
       ];
 }

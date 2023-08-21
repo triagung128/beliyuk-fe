@@ -42,7 +42,9 @@ class _MainPageState extends State<MainPage> {
   ];
 
   final List<Widget> _listWidget = [
-    const HomePage(),
+    const HomePage(
+      key: PageStorageKey('homePage'),
+    ),
     const WishlistPage(),
     const TransactionHistoryPage(),
     const ProfilePage(),

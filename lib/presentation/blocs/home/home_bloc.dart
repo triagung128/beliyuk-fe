@@ -84,5 +84,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         ),
       );
     });
+
+    on<SaveIndexIndicator>((event, emit) {
+      emit(state.copyWith(indexCarouselSliderIndicator: event.index));
+    });
   }
 }

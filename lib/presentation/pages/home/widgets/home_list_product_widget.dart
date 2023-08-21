@@ -22,9 +22,10 @@ class HomeListProductWidget extends StatelessWidget {
         if (state.productsState == RequestState.loaded &&
             state.products.isNotEmpty) {
           return GridView.builder(
+            key: const PageStorageKey<String>('homeListProduct'),
             padding: EdgeInsets.zero,
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            primary: false,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 8,

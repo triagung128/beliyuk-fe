@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/injection.dart' as di;
 import 'package:beliyuk/presentation/blocs/home/home_bloc.dart';
 import 'package:beliyuk/presentation/common_widgets/custom_appbar_with_cart_icon.dart';
 import 'package:beliyuk/presentation/pages/home/widgets/home_list_banner_widget.dart';
@@ -15,71 +14,62 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => di.locator<HomeBloc>()
-        ..add(DoGetAllBanners())
-        ..add(DoGetAllCategories())
-        ..add(DoGetAllProducts()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: const CustomAppBarWithCartIcon(
-          automaticallyImplyLeading: false,
-          title: Text('BeliYuk !'),
-        ),
-        body: Column(
-          children: [
-            HomeSearchWidget(),
-            Expanded(
-              child: BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  return RefreshIndicator(
-                    onRefresh: () async {
-                      await Future.delayed(
-                        const Duration(seconds: 1),
-                        () {
-                          context.read<HomeBloc>()
-                            ..add(DoGetAllBanners())
-                            ..add(DoGetAllCategories())
-                            ..add(DoGetAllProducts());
-                        },
-                      );
-                    },
-                    child: ListView(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                        bottom: 16,
-                      ),
-                      children: const [
-                        HomeListBannerWidget(),
-                        SizedBox(height: 16),
-                        Text(
-                          'Kategori',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        HomeListCategoryWidget(),
-                        SizedBox(height: 16),
-                        Text(
-                          'List Produk',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        HomeListProductWidget(),
-                      ],
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: const CustomAppBarWithCartIcon(
+        automaticallyImplyLeading: false,
+        title: Text('BeliYuk !'),
+      ),
+      body: Column(
+        children: [
+          HomeSearchWidget(),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await Future.delayed(
+                  const Duration(seconds: 1),
+                  () {
+                    context.read<HomeBloc>()
+                      ..add(DoGetAllBanners())
+                      ..add(DoGetAllCategories())
+                      ..add(DoGetAllProducts());
+                  },
+                );
+              },
+              child: ListView(
+                key: const PageStorageKey('homeListView'),
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  bottom: 16,
+                ),
+                children: [
+                  HomeListBannerWidget(),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Kategori',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                  );
-                },
+                  ),
+                  const SizedBox(height: 12),
+                  const HomeListCategoryWidget(),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'List Produk',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const HomeListProductWidget(),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

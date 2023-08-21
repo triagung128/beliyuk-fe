@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:beliyuk/injection.dart' as di;
 import 'package:beliyuk/presentation/blocs/auth/auth_bloc.dart';
 import 'package:beliyuk/presentation/blocs/cart/cart_bloc.dart';
+import 'package:beliyuk/presentation/blocs/home/home_bloc.dart';
 import 'package:beliyuk/presentation/pages/main/main_page.dart';
 
 void main() async {
@@ -27,6 +28,12 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.locator<AuthBloc>()..add(DoAuthCheckEvent()),
         ),
+        BlocProvider(
+          create: (_) => di.locator<HomeBloc>()
+            ..add(DoGetAllBanners())
+            ..add(DoGetAllCategories())
+            ..add(DoGetAllProducts()),
+        )
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

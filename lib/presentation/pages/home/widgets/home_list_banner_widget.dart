@@ -8,17 +8,10 @@ import 'package:beliyuk/common/constants.dart';
 import 'package:beliyuk/common/enum_state.dart';
 import 'package:beliyuk/presentation/blocs/home/home_bloc.dart';
 
-class HomeListBannerWidget extends StatefulWidget {
-  const HomeListBannerWidget({super.key});
+class HomeListBannerWidget extends StatelessWidget {
+  HomeListBannerWidget({super.key});
 
-  @override
-  State<HomeListBannerWidget> createState() => _HomeListBannerWidgetState();
-}
-
-class _HomeListBannerWidgetState extends State<HomeListBannerWidget> {
   final CarouselController _carouselController = CarouselController();
-
-  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -77,13 +70,13 @@ class _HomeListBannerWidgetState extends State<HomeListBannerWidget> {
                   );
                 },
                 options: CarouselOptions(
-                  pageViewKey: const PageStorageKey<String>('listBanner'),
+                  pageViewKey: const PageStorageKey<String>('homeListBanner'),
                   viewportFraction: 1,
                   autoPlay: true,
                   enlargeCenterPage: false,
                   height: 144,
                   onPageChanged: (index, x) {
-                    setState(() => _currentIndex = index);
+                    context.read<HomeBloc>().add(SaveIndexIndicator(index));
                   },
                 ),
               ),
@@ -91,7 +84,8 @@ class _HomeListBannerWidgetState extends State<HomeListBannerWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: state.banners.asMap().entries.map((entry) {
-                  final bool isSelected = _currentIndex == entry.key;
+                  final bool isSelected =
+                      state.indexCarouselSliderIndicator == entry.key;
 
                   return GestureDetector(
                     onTap: () => _carouselController.animateToPage(entry.key),
