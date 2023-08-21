@@ -49,23 +49,19 @@ class _MainPageState extends State<MainPage> {
   ];
 
   void _onBottomNavTapped(int index) async {
-    if (index != 0) {
-      if (_token == null) {
-        final String? result = await Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const AuthPage()),
-        );
+    if (index == 0 || _token != null) {
+      setState(() => _bottomNavIndex = index);
+    } else {
+      final String? result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const AuthPage()),
+      );
 
-        if (!mounted) return;
+      if (!mounted) return;
 
-        if (result != null && result == GlobalVariables.successLogin) {
-          setState(() => _bottomNavIndex = index);
-        }
-      } else {
+      if (result != null && result == GlobalVariables.successLogin) {
         setState(() => _bottomNavIndex = index);
       }
-    } else {
-      setState(() => _bottomNavIndex = index);
     }
   }
 
