@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
                   const HomeListCategoryWidget(),
                   const SizedBox(height: 16),
                   const Text(
-                    'List Produk',
+                    'Produk Hari Ini',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
