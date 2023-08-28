@@ -71,17 +71,13 @@ class ItemCart extends StatelessWidget {
                     children: [
                       Text(
                         cart.name,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 8),
                       Text(
                         cart.price.intToFormatRupiah,
                         style: const TextStyle(
-                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -147,7 +143,6 @@ class ItemCart extends StatelessWidget {
                               child: Text(
                                 '${cart.quantity}',
                                 style: const TextStyle(
-                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
