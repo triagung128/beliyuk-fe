@@ -35,11 +35,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final items = await _getAllCarts();
       final totalPrice = await _totalPrice();
       final totalItems = await _totalItems();
+      final totalWeight = await _totalWeight();
 
       emit(CartLoaded(
         items: items,
         totalPrice: totalPrice,
         totalItems: totalItems,
+        totalWeight: totalWeight,
       ));
     });
 
@@ -55,11 +57,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final items = await _getAllCarts();
       final totalPrice = await _totalPrice();
       final totalItems = await _totalItems();
+      final totalWeight = await _totalWeight();
 
       emit(CartLoaded(
         items: items,
         totalPrice: totalPrice,
         totalItems: totalItems,
+        totalWeight: totalWeight,
       ));
     });
 
@@ -69,11 +73,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final items = await _getAllCarts();
       final totalPrice = await _totalPrice();
       final totalItems = await _totalItems();
+      final totalWeight = await _totalWeight();
 
       emit(CartLoaded(
         items: items,
         totalPrice: totalPrice,
         totalItems: totalItems,
+        totalWeight: totalWeight,
       ));
     });
 
@@ -83,11 +89,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final items = await _getAllCarts();
       final totalPrice = await _totalPrice();
       final totalItems = await _totalItems();
+      final totalWeight = await _totalWeight();
 
       emit(CartLoaded(
         items: items,
         totalPrice: totalPrice,
         totalItems: totalItems,
+        totalWeight: totalWeight,
       ));
     });
 
@@ -97,11 +105,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final items = await _getAllCarts();
       final totalPrice = await _totalPrice();
       final totalItems = await _totalItems();
+      final totalWeight = await _totalWeight();
 
       emit(CartLoaded(
         items: items,
         totalPrice: totalPrice,
         totalItems: totalItems,
+        totalWeight: totalWeight,
       ));
     });
 
@@ -111,11 +121,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final items = await _getAllCarts();
       final totalPrice = await _totalPrice();
       final totalItems = await _totalItems();
+      final totalWeight = await _totalWeight();
 
       emit(CartLoaded(
         items: items,
         totalPrice: totalPrice,
         totalItems: totalItems,
+        totalWeight: totalWeight,
       ));
     });
   }
@@ -143,6 +155,18 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     for (var item in carts) {
       total += (item.quantity * item.price);
+    }
+
+    return total;
+  }
+
+  Future<int> _totalWeight() async {
+    int total = 0;
+
+    final carts = await _getAllCarts();
+
+    for (var item in carts) {
+      total += (item.quantity * item.weight);
     }
 
     return total;

@@ -15,13 +15,15 @@ final class CartLoaded extends CartState {
   final List<Cart> items;
   final int totalPrice;
   final int totalItems;
+  final int totalWeight;
 
   const CartLoaded({
     required this.items,
     required this.totalPrice,
     required this.totalItems,
+    required this.totalWeight,
   });
 
   @override
-  List<Object> get props => [items, totalPrice, totalItems];
+  List<Object> get props => [items, totalPrice, totalItems, totalWeight];
 }

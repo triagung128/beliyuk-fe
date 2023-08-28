@@ -7,6 +7,7 @@ class CartModel extends Equatable {
   final String name;
   final int price;
   final String image;
+  final int weight;
   final int quantity;
 
   const CartModel({
@@ -14,6 +15,7 @@ class CartModel extends Equatable {
     required this.name,
     required this.price,
     required this.image,
+    required this.weight,
     this.quantity = 0,
   });
 
@@ -23,6 +25,7 @@ class CartModel extends Equatable {
         name,
         price,
         image,
+        weight,
         quantity,
       ];
 
@@ -31,6 +34,7 @@ class CartModel extends Equatable {
         'name': name,
         'price': price,
         'image': image,
+        'weight': weight,
         'quantity': quantity,
       };
 
@@ -47,6 +51,7 @@ class CartModel extends Equatable {
         name: map['name'],
         price: map['price'],
         image: map['image'],
+        weight: map['weight'],
         quantity: map['quantity'],
       );
 
@@ -55,6 +60,7 @@ class CartModel extends Equatable {
         name: name,
         price: price,
         image: image,
+        weight: weight,
         quantity: quantity,
       );
 
@@ -63,6 +69,7 @@ class CartModel extends Equatable {
         name: cart.name,
         price: cart.price,
         image: cart.image,
+        weight: cart.weight,
         quantity: cart.quantity == 0 ? 1 : cart.quantity,
       );
 }

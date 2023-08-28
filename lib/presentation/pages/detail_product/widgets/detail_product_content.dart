@@ -77,6 +77,7 @@ class DetailProductContent extends StatelessWidget {
                                 productId: product.id,
                                 name: product.name,
                                 price: product.price,
+                                weight: product.weight,
                                 image: product.images[0],
                               ));
                         } else {

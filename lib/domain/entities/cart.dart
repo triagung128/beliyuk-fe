@@ -5,6 +5,7 @@ class Cart extends Equatable {
   final String name;
   final int price;
   final String image;
+  final int weight;
   final int quantity;
 
   const Cart({
@@ -12,6 +13,7 @@ class Cart extends Equatable {
     required this.name,
     required this.price,
     required this.image,
+    required this.weight,
     this.quantity = 0,
   });
 
@@ -21,6 +23,7 @@ class Cart extends Equatable {
         name,
         price,
         image,
+        weight,
         quantity,
       ];
 }

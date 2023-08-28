@@ -8,6 +8,7 @@ class WishlistModel extends Equatable {
   final int productId;
   final String name;
   final int price;
+  final int weight;
   final String image;
 
   const WishlistModel({
@@ -16,6 +17,7 @@ class WishlistModel extends Equatable {
     required this.productId,
     required this.name,
     required this.price,
+    required this.weight,
     required this.image,
   });
 
@@ -25,6 +27,7 @@ class WishlistModel extends Equatable {
           'productId': productId,
           'name': name,
           'price': price,
+          'weight': weight,
           'image': image,
         },
       };
@@ -35,6 +38,7 @@ class WishlistModel extends Equatable {
         productId: json['attributes']['productId'],
         name: json['attributes']['name'],
         price: json['attributes']['price'],
+        weight: json['attributes']['weight'],
         image: json['attributes']['image'],
       );
 
@@ -44,6 +48,7 @@ class WishlistModel extends Equatable {
         productId: productId,
         name: name,
         price: price,
+        weight: weight,
         image: image,
       );
 
@@ -52,6 +57,7 @@ class WishlistModel extends Equatable {
         productId: wishlist.productId,
         name: wishlist.name,
         price: wishlist.price,
+        weight: wishlist.weight,
         image: wishlist.image,
       );
 
@@ -63,6 +69,7 @@ class WishlistModel extends Equatable {
       productId,
       name,
       price,
+      weight,
       image,
     ];
   }

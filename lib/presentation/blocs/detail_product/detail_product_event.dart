@@ -20,17 +20,19 @@ final class AddWishlistDetailProductEvent extends DetailProductEvent {
   final int productId;
   final String name;
   final int price;
+  final int weight;
   final String image;
 
   const AddWishlistDetailProductEvent({
     required this.productId,
     required this.name,
     required this.price,
+    required this.weight,
     required this.image,
   });
 
   @override
-  List<Object> get props => [productId, name, price, image];
+  List<Object> get props => [productId, name, price, weight, image];
 }
 
 final class RemoveWishlistDetailProductEvent extends DetailProductEvent {

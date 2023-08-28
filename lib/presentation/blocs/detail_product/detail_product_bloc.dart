@@ -65,6 +65,7 @@ class DetailProductBloc extends Bloc<DetailProductEvent, DetailProductState> {
           productId: event.productId,
           name: event.name,
           price: event.price,
+          weight: event.weight,
           image: event.image,
         );
 

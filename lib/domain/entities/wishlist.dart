@@ -6,6 +6,7 @@ class Wishlist extends Equatable {
   final int productId;
   final String name;
   final int price;
+  final int weight;
   final String image;
 
   const Wishlist({
@@ -14,6 +15,7 @@ class Wishlist extends Equatable {
     required this.productId,
     required this.name,
     required this.price,
+    required this.weight,
     required this.image,
   });
 
@@ -25,6 +27,7 @@ class Wishlist extends Equatable {
       productId,
       name,
       price,
+      weight,
       image,
     ];
   }

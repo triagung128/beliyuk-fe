@@ -34,13 +34,13 @@ class DatabaseHelper {
   }
 
   void _onCreate(Database db, int version) async {
-    await db.execute(
-        '''
+    await db.execute('''
       CREATE TABLE $_tbCart (
         id INTEGER PRIMARY KEY,
         name TEXT,
         price INTEGER,
         image TEXT,
+        weight INTEGER,
         quantity INTEGER
       );
     ''');

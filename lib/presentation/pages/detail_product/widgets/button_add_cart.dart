@@ -26,7 +26,7 @@ class ButtonAddCart extends StatelessWidget {
         ),
       ),
       child: Container(
-        height: 42,
+        height: 48,
         margin: const EdgeInsets.all(16),
         child: ElevatedButton(
           onPressed: () {
@@ -35,6 +35,7 @@ class ButtonAddCart extends StatelessWidget {
               name: product.name,
               price: product.price,
               image: product.images[0],
+              weight: product.weight,
             );
 
             context.read<CartBloc>().add(AddCartEvent(cartItem));
