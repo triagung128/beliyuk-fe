@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:beliyuk/common/constants.dart';
@@ -8,7 +9,7 @@ import 'package:beliyuk/common/int_extensions.dart';
 import 'package:beliyuk/domain/entities/product.dart';
 import 'package:beliyuk/presentation/blocs/detail_product/detail_product_bloc.dart';
 
-class DetailProductContent extends StatelessWidget {
+class DetailProductContent extends StatefulWidget {
   const DetailProductContent({
     required this.product,
     required this.isAddedToWishlist,
@@ -19,39 +20,85 @@ class DetailProductContent extends StatelessWidget {
   final bool isAddedToWishlist;
 
   @override
+  State<DetailProductContent> createState() => _DetailProductContentState();
+}
+
+class _DetailProductContentState extends State<DetailProductContent> {
+  int _indexCarouselSlider = 0;
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          CachedNetworkImage(
-            imageUrl: '${Urls.baseUrl}${product.images[0]}',
-            imageBuilder: (context, imageProvider) => Container(
-              width: MediaQuery.of(context).size.width,
-              height: 350,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: imageProvider,
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              CarouselSlider.builder(
+                itemCount: widget.product.images.length,
+                itemBuilder: (context, index, _) {
+                  final String imageUrl = widget.product.images[index];
+
+                  return CachedNetworkImage(
+                    imageUrl: '${Urls.baseUrl}$imageUrl',
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: imageProvider,
+                        ),
+                      ),
+                    ),
+                    progressIndicatorBuilder: (_, __, progress) => SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          value: progress.progress,
+                        ),
+                      ),
+                    ),
+                    errorWidget: (context, _, __) => Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[350],
+                      ),
+                      child: const Icon(Icons.broken_image, size: 62),
+                    ),
+                  );
+                },
+                options: CarouselOptions(
+                  viewportFraction: 1,
+                  autoPlay: false,
+                  height: 370,
+                  enableInfiniteScroll: false,
+                  onPageChanged: (index, _) {
+                    setState(() => _indexCarouselSlider = index);
+                  },
                 ),
               ),
-            ),
-            progressIndicatorBuilder: (_, __, progress) => SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 350,
-              child: Center(
-                child: CircularProgressIndicator(
-                  value: progress.progress,
+              Positioned(
+                bottom: 16,
+                child: Row(
+                  children: widget.product.images.asMap().entries.map((entry) {
+                    final bool isSelected = _indexCarouselSlider == entry.key;
+
+                    return GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        width: isSelected ? 8 : 6,
+                        height: isSelected ? 8 : 6,
+                        margin: const EdgeInsets.only(right: 6),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: isSelected ? Colors.blue : Colors.grey,
+                        ),
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
-            ),
-            errorWidget: (context, _, __) => Container(
-              width: MediaQuery.of(context).size.width,
-              height: 350,
-              decoration: BoxDecoration(
-                color: Colors.grey[350],
-              ),
-              child: const Icon(Icons.broken_image, size: 62),
-            ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.all(16),
@@ -62,7 +109,7 @@ class DetailProductContent extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      product.price.intToFormatRupiah,
+                      widget.product.price.intToFormatRupiah,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -70,23 +117,24 @@ class DetailProductContent extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        if (!isAddedToWishlist) {
+                        if (!widget.isAddedToWishlist) {
                           context
                               .read<DetailProductBloc>()
                               .add(AddWishlistDetailProductEvent(
-                                productId: product.id,
-                                name: product.name,
-                                price: product.price,
-                                weight: product.weight,
-                                image: product.images[0],
+                                productId: widget.product.id,
+                                name: widget.product.name,
+                                price: widget.product.price,
+                                weight: widget.product.weight,
+                                image: widget.product.images[0],
                               ));
                         } else {
                           context.read<DetailProductBloc>().add(
-                              RemoveWishlistDetailProductEvent(product.id));
+                              RemoveWishlistDetailProductEvent(
+                                  widget.product.id));
                         }
                       },
                       icon: Icon(
-                        isAddedToWishlist
+                        widget.isAddedToWishlist
                             ? Icons.favorite
                             : Icons.favorite_border,
                         color: Colors.pink,
@@ -96,7 +144,7 @@ class DetailProductContent extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  product.name,
+                  widget.product.name,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -117,13 +165,13 @@ class DetailProductContent extends StatelessWidget {
                     TableRow(
                       children: [
                         const Text('Berat satuan'),
-                        Text(product.weight.convertUnitWeight),
+                        Text(widget.product.weight.convertUnitWeight),
                       ],
                     ),
                     TableRow(
                       children: [
                         const Text('Kategori'),
-                        Text(product.category.name),
+                        Text(widget.product.category.name),
                       ],
                     ),
                   ],
@@ -136,7 +184,7 @@ class DetailProductContent extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Text(product.description),
+                Text(widget.product.description),
               ],
             ),
           ),
