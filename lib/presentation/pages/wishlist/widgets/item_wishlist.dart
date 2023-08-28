@@ -29,49 +29,52 @@ class ItemWishlist extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: CachedNetworkImage(
-                  imageUrl: '${Urls.baseUrl}${wishlist.image}',
-                  imageBuilder: (context, imageProvider) => Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(10),
-                      ),
-                      image: DecorationImage(image: imageProvider),
-                    ),
-                  ),
-                  progressIndicatorBuilder: (_, __, progress) => Center(
-                    child: CircularProgressIndicator(
-                      value: progress.progress,
-                    ),
-                  ),
-                  errorWidget: (context, _, __) => Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[400],
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(10),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                      DetailProductPage(productId: wishlist.productId),
+                ),
+              );
+            },
+            borderRadius: BorderRadius.circular(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: CachedNetworkImage(
+                    imageUrl: '${Urls.baseUrl}${wishlist.image}',
+                    imageBuilder: (context, imageProvider) => Ink(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                        image: DecorationImage(image: imageProvider),
                       ),
                     ),
-                    child: const Center(
-                      child: Icon(Icons.broken_image, size: 32),
+                    progressIndicatorBuilder: (_, __, progress) => Center(
+                      child: CircularProgressIndicator(
+                        value: progress.progress,
+                      ),
+                    ),
+                    errorWidget: (context, _, __) => Ink(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[400],
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                      ),
+                      child: const Center(
+                        child: Icon(Icons.broken_image, size: 32),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => DetailProductPage(
-                              productId: wishlist.productId)));
-                },
-                child: Padding(
+                Padding(
                   padding: const EdgeInsets.all(8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,6 +102,7 @@ class ItemWishlist extends StatelessWidget {
                               name: wishlist.name,
                               price: wishlist.price,
                               image: wishlist.image,
+                              weight: wishlist.weight,
                             );
                             context.read<CartBloc>().add(AddCartEvent(cart));
                           },
@@ -118,8 +122,8 @@ class ItemWishlist extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Positioned(

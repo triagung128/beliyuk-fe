@@ -17,27 +17,28 @@ class ItemProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => DetailProductPage(productId: product.id),
-          ),
-        );
-      },
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => DetailProductPage(productId: product.id),
+            ),
+          );
+        },
+        borderRadius: BorderRadius.circular(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: CachedNetworkImage(
                 imageUrl: '${Urls.baseUrl}${product.images[0]}',
-                imageBuilder: (context, imageProvider) => Container(
+                imageBuilder: (context, imageProvider) => Ink(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.vertical(
@@ -51,7 +52,7 @@ class ItemProduct extends StatelessWidget {
                     value: progress.progress,
                   ),
                 ),
-                errorWidget: (_, __, ___) => Container(
+                errorWidget: (_, __, ___) => Ink(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: Colors.grey[350],
