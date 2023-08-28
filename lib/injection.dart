@@ -2,25 +2,34 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:beliyuk/data/database/database_helper.dart';
+import 'package:beliyuk/data/datasources/local/address_local_data_source.dart';
 import 'package:beliyuk/data/datasources/local/auth_local_data_source.dart';
 import 'package:beliyuk/data/datasources/local/cart_local_data_source.dart';
+import 'package:beliyuk/data/datasources/remote/address_remote_data_source.dart';
 import 'package:beliyuk/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:beliyuk/data/datasources/remote/banner_remote_data_source.dart';
 import 'package:beliyuk/data/datasources/remote/category_remote_data_source.dart';
+import 'package:beliyuk/data/datasources/remote/courier_remote_data_source.dart';
 import 'package:beliyuk/data/datasources/remote/product_remote_data_source.dart';
 import 'package:beliyuk/data/datasources/remote/wishlist_remote_data_source.dart';
+import 'package:beliyuk/data/repositories/address_repository_impl.dart';
 import 'package:beliyuk/data/repositories/auth_repository_impl.dart';
 import 'package:beliyuk/data/repositories/banner_repository_impl.dart';
 import 'package:beliyuk/data/repositories/cart_repository_impl.dart';
 import 'package:beliyuk/data/repositories/category_repository_impl.dart';
+import 'package:beliyuk/data/repositories/courier_repository_impl.dart';
 import 'package:beliyuk/data/repositories/product_repository_impl.dart';
 import 'package:beliyuk/data/repositories/wishlist_repository_impl.dart';
+import 'package:beliyuk/domain/repositories/address_repository.dart';
 import 'package:beliyuk/domain/repositories/auth_repository.dart';
 import 'package:beliyuk/domain/repositories/banner_repository.dart';
 import 'package:beliyuk/domain/repositories/cart_repository.dart';
 import 'package:beliyuk/domain/repositories/category_repository.dart';
+import 'package:beliyuk/domain/repositories/courier_repository.dart';
 import 'package:beliyuk/domain/repositories/product_repository.dart';
 import 'package:beliyuk/domain/repositories/wishlist_repository.dart';
+import 'package:beliyuk/domain/usecases/address/get_all_cities.dart';
+import 'package:beliyuk/domain/usecases/address/get_all_provinces.dart';
 import 'package:beliyuk/domain/usecases/auth/get_auth.dart';
 import 'package:beliyuk/domain/usecases/auth/login.dart';
 import 'package:beliyuk/domain/usecases/auth/register.dart';
@@ -35,6 +44,7 @@ import 'package:beliyuk/domain/usecases/cart/get_cart_by_id.dart';
 import 'package:beliyuk/domain/usecases/cart/reduce_quantity.dart';
 import 'package:beliyuk/domain/usecases/cart/remove_cart.dart';
 import 'package:beliyuk/domain/usecases/category/get_all_categories.dart';
+import 'package:beliyuk/domain/usecases/courier/get_cost.dart';
 import 'package:beliyuk/domain/usecases/product/get_all_products.dart';
 import 'package:beliyuk/domain/usecases/product/get_all_products_by_category.dart';
 import 'package:beliyuk/domain/usecases/product/get_product_by_id.dart';
@@ -46,6 +56,7 @@ import 'package:beliyuk/domain/usecases/wishlist/remove_wishlist.dart';
 import 'package:beliyuk/presentation/blocs/auth/auth_bloc.dart';
 import 'package:beliyuk/presentation/blocs/cart/cart_bloc.dart';
 import 'package:beliyuk/presentation/blocs/category/category_bloc.dart';
+import 'package:beliyuk/presentation/blocs/checkout/checkout_bloc.dart';
 import 'package:beliyuk/presentation/blocs/detail_product/detail_product_bloc.dart';
 import 'package:beliyuk/presentation/blocs/home/home_bloc.dart';
 import 'package:beliyuk/presentation/blocs/search_product/search_product_bloc.dart';
@@ -104,6 +115,13 @@ void init() {
       removeCart: locator(),
     ),
   );
+  locator.registerFactory(
+    () => CheckoutBloc(
+      getAllProvinces: locator(),
+      getAllCities: locator(),
+      getCost: locator(),
+    ),
+  );
 
   // usecase
   locator.registerLazySingleton(() => GetAllProducts(locator()));
@@ -128,6 +146,9 @@ void init() {
   locator.registerLazySingleton(() => GetCartById(locator()));
   locator.registerLazySingleton(() => ReduceQuantity(locator()));
   locator.registerLazySingleton(() => RemoveCart(locator()));
+  locator.registerLazySingleton(() => GetAllProvinces(locator()));
+  locator.registerLazySingleton(() => GetAllCities(locator()));
+  locator.registerLazySingleton(() => GetCost(locator()));
 
   // repository
   locator.registerLazySingleton<ProductRepository>(
@@ -151,6 +172,15 @@ void init() {
   locator.registerLazySingleton<CartRepository>(
     () => CartRepositoryImpl(localDataSource: locator()),
   );
+  locator.registerLazySingleton<AddressRepository>(
+    () => AddressRepositoryImpl(
+      localDataSource: locator(),
+      remoteDataSource: locator(),
+    ),
+  );
+  locator.registerLazySingleton<CourierRepository>(
+    () => CourierRepositoryImpl(remoteDataSource: locator()),
+  );
 
   // datasource
   locator.registerLazySingleton<ProductRemoteDataSource>(
@@ -173,6 +203,15 @@ void init() {
   );
   locator.registerLazySingleton<CartLocalDataSource>(
     () => CartLocalDataSourceImpl(databaseHelper: locator()),
+  );
+  locator.registerLazySingleton<AddressLocalDataSource>(
+    () => AddressLocalDataSourceImpl(),
+  );
+  locator.registerLazySingleton<AddressRemoteDataSource>(
+    () => AddressRemoteDataSourceImpl(client: locator()),
+  );
+  locator.registerLazySingleton<CourierRemoteDataSource>(
+    () => CourierRemoteDataSourceImpl(client: locator()),
   );
 
   // external

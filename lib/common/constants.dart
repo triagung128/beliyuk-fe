@@ -33,4 +33,14 @@ class Urls {
 
   static String removeWishlist(int wishlistId) =>
       '$baseUrl/api/wishlists/$wishlistId';
+
+  // === RajaOngkir ===
+
+  static String rajaOngkirUrl = dotenv.env['RAJA_ONGKIR_URL']!;
+  static String apiKeyRajaOngkir = dotenv.env['API_KEY_RAJA_ONGKIR']!;
+
+  static String getAllCities(String provinceId) =>
+      '$rajaOngkirUrl/starter/city?province=$provinceId';
+
+  static String getAllCourier = '$rajaOngkirUrl/starter/cost';
 }

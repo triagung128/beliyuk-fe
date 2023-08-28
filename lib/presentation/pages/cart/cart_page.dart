@@ -6,6 +6,7 @@ import 'package:beliyuk/common/int_extensions.dart';
 import 'package:beliyuk/domain/entities/cart.dart';
 import 'package:beliyuk/presentation/blocs/auth/auth_bloc.dart';
 import 'package:beliyuk/presentation/blocs/cart/cart_bloc.dart';
+import 'package:beliyuk/presentation/blocs/checkout/checkout_bloc.dart';
 import 'package:beliyuk/presentation/pages/auth/auth_page.dart';
 import 'package:beliyuk/presentation/pages/cart/widgets/button_checkout.dart';
 import 'package:beliyuk/presentation/pages/cart/widgets/item_cart.dart';
@@ -82,25 +83,32 @@ class CartPage extends StatelessWidget {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
+              height: 48,
               margin: const EdgeInsets.all(16),
               child: BlocBuilder<CartBloc, CartState>(
                 builder: (context, state) {
                   if (state is CartLoaded && state.items.isNotEmpty) {
                     final List<Cart> cartItems = state.items;
                     final int totalPrice = state.totalPrice;
+                    final int totalWeight = state.totalWeight;
 
                     return BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
                         return ButtonCheckout(
                           onPressed: () {
                             if (state.user != null) {
+                              context.read<CheckoutBloc>().add(
+                                    DoSetCartItems(
+                                      carts: cartItems,
+                                      totalPriceProduct: totalPrice,
+                                      totalWeight: totalWeight,
+                                    ),
+                                  );
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => CheckoutPage(
-                                    cartItems: cartItems,
-                                    totalPrice: totalPrice,
-                                  ),
+                                  builder: (_) => const CheckoutPage(),
                                 ),
                               );
                             } else {
