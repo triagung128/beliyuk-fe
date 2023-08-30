@@ -30,7 +30,6 @@ class DetailProductPage extends StatelessWidget {
         key: _scaffoldMessengerKey,
         child: Scaffold(
           appBar: const CustomAppBarWithCartIcon(
-            centerTitle: true,
             title: Text('Detail Produk'),
           ),
           body: BlocConsumer<DetailProductBloc, DetailProductState>(

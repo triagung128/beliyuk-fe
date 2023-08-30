@@ -11,7 +11,7 @@ class CustomAppBarWithCartIcon extends StatelessWidget
   const CustomAppBarWithCartIcon({
     super.key,
     this.automaticallyImplyLeading = true,
-    this.centerTitle = false,
+    this.centerTitle = true,
     this.title,
   });
 

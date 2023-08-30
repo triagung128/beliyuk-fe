@@ -42,6 +42,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         appBar: AppBar(
           title: const Text('Checkout'),
           elevation: 0,
+          centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: Column(

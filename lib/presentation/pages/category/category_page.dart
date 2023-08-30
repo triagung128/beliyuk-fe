@@ -23,6 +23,7 @@ class CategoryPage extends StatelessWidget {
         ..add(DoGetAllProductsByCategoryIdEvent(category.id)),
       child: Scaffold(
         appBar: CustomAppBarWithCartIcon(
+          centerTitle: false,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -67,9 +68,9 @@ class CategoryPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/product-empty.png',
-                      height: 200,
-                      width: 200,
+                      'assets/empty-product.png',
+                      height: 150,
+                      width: 150,
                     ),
                     const SizedBox(height: 16),
                     const Text(
@@ -77,7 +78,7 @@ class CategoryPage extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     const SizedBox(height: 4),
-                    const Text('Kategori ini belum memiliki produk !'),
+                    const Text('Kategori ini belum memiliki produk!'),
                   ],
                 );
               }

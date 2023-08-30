@@ -102,9 +102,9 @@ class _SearchProductPageState extends State<SearchProductPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'assets/product-empty.png',
-                            height: 200,
-                            width: 200,
+                            'assets/empty-product.png',
+                            height: 150,
+                            width: 150,
                           ),
                           const SizedBox(height: 16),
                           const Text(
@@ -112,7 +112,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                             style: TextStyle(fontSize: 16),
                           ),
                           const SizedBox(height: 4),
-                          const Text('Produk yang Anda cari tidak ditemukan !'),
+                          const Text('Produk yang Anda cari tidak ditemukan!'),
                         ],
                       );
                     }

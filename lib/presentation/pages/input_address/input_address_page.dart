@@ -80,6 +80,7 @@ class _InputAddressPageState extends State<InputAddressPage> {
       appBar: AppBar(
         title: const Text('Alamat Pengiriman'),
         elevation: 0,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Container(

@@ -21,6 +21,7 @@ class CartPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Keranjang Saya'),
         elevation: 0,
+        centerTitle: true,
       ),
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
@@ -40,15 +41,24 @@ class CartPage extends StatelessWidget {
                 },
               );
             } else {
-              return const Center(
-                child: Text('Keranjang Anda kosong !'),
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/empty-cart.png',
+                      height: 120,
+                      width: 120,
+                    ),
+                    const SizedBox(height: 16),
+                    const Text('Keranjang Anda masih kosong'),
+                  ],
+                ),
               );
             }
           }
 
-          return const Center(
-            child: Text('Keranjang Anda kosong !'),
-          );
+          return const SizedBox();
         },
       ),
       bottomNavigationBar: Container(

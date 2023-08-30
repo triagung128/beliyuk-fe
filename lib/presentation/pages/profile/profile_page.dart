@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restart_app/restart_app.dart';
 
@@ -14,6 +15,8 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Akun Saya'),
+        elevation: 0,
+        centerTitle: true,
       ),
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
@@ -42,9 +45,20 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(height: 32),
                 ElevatedButton.icon(
                   onPressed: () {
-                    context.read<AuthBloc>().add(DoLogoutEvent());
-                    context.read<CartBloc>().add(DeleteAllCartEvent());
-                    Restart.restartApp();
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.noHeader,
+                      title: 'Logout',
+                      desc: 'Apakah Anda yakin ingin logout ?',
+                      btnCancelText: 'Batal',
+                      btnOkText: 'Logout',
+                      btnCancelOnPress: () {},
+                      btnOkOnPress: () {
+                        context.read<AuthBloc>().add(DoLogoutEvent());
+                        context.read<CartBloc>().add(DeleteAllCartEvent());
+                        Restart.restartApp();
+                      },
+                    ).show();
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

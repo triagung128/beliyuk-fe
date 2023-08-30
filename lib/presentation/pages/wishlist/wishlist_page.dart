@@ -43,6 +43,7 @@ class WishlistPage extends StatelessWidget {
                     );
                   },
                   child: GridView.builder(
+                    key: const PageStorageKey<String>('wishlist'),
                     padding: const EdgeInsets.all(16),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -59,8 +60,19 @@ class WishlistPage extends StatelessWidget {
                   ),
                 );
               } else {
-                return const Center(
-                  child: Text('Data Kosong'),
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/empty-wishlist.png',
+                        height: 120,
+                        width: 120,
+                      ),
+                      const SizedBox(height: 16),
+                      const Text('Anda belum memiliki wishlist'),
+                    ],
+                  ),
                 );
               }
             }
