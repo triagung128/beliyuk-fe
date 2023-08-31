@@ -1,7 +1,7 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:beliyuk/env/env.dart';
 
 class Urls {
-  static String baseUrl = dotenv.env['BASE_URL']!;
+  static String baseUrl = Env.baseUrl;
 
   static String getAllProducts =
       '$baseUrl/api/products?populate[category][populate]=*&populate[images]=*';
@@ -41,8 +41,8 @@ class Urls {
 
   // === RajaOngkir ===
 
-  static String rajaOngkirUrl = dotenv.env['RAJA_ONGKIR_URL']!;
-  static String apiKeyRajaOngkir = dotenv.env['API_KEY_RAJA_ONGKIR']!;
+  static String rajaOngkirUrl = Env.rajaOngkirUrl;
+  static String apiKeyRajaOngkir = Env.rajaOngkirApiKey;
 
   static String getAllCities(String provinceId) =>
       '$rajaOngkirUrl/starter/city?province=$provinceId';

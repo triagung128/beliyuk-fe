@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:beliyuk/injection.dart' as di;
 import 'package:beliyuk/presentation/blocs/auth/auth_bloc.dart';
@@ -13,7 +12,6 @@ import 'package:beliyuk/presentation/blocs/transaction/transaction_bloc.dart';
 import 'package:beliyuk/presentation/pages/main/main_page.dart';
 
 void main() async {
-  await dotenv.load(fileName: '.env');
   di.init();
   runApp(const MainApp());
 }
