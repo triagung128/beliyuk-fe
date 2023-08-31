@@ -24,6 +24,7 @@ dependencies:
   restart_app: ^1.2.1
   shared_preferences: ^2.2.0
   sqflite: ^2.3.0
+  webview_flutter: ^4.2.3
 
 dev_dependencies:
   flutter_lints: ^2.0.0
