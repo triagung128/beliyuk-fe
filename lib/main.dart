@@ -8,6 +8,8 @@ import 'package:beliyuk/presentation/blocs/auth/auth_bloc.dart';
 import 'package:beliyuk/presentation/blocs/cart/cart_bloc.dart';
 import 'package:beliyuk/presentation/blocs/checkout/checkout_bloc.dart';
 import 'package:beliyuk/presentation/blocs/home/home_bloc.dart';
+import 'package:beliyuk/presentation/blocs/main/main_bloc.dart';
+import 'package:beliyuk/presentation/blocs/transaction/transaction_bloc.dart';
 import 'package:beliyuk/presentation/pages/main/main_page.dart';
 
 void main() async {
@@ -37,6 +39,12 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<CheckoutBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TransactionBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<MainBloc>(),
         ),
       ],
       child: const MaterialApp(

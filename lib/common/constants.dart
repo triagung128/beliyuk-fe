@@ -24,7 +24,7 @@ class Urls {
   static String register = '$baseUrl/api/auth/local/register';
 
   static String getAllWishlist(int userId) =>
-      '$baseUrl/api/wishlists?filters[userId][\$eq]=$userId';
+      '$baseUrl/api/wishlists?sort=id:desc&filters[userId][\$eq]=$userId';
 
   static String getWishlistByProductId(int userId, int productId) =>
       '$baseUrl/api/wishlists?filters[userId][\$eq]=$userId&filters[productId][\$eq]=$productId';
@@ -33,6 +33,11 @@ class Urls {
 
   static String removeWishlist(int wishlistId) =>
       '$baseUrl/api/wishlists/$wishlistId';
+
+  static String createOrder = '$baseUrl/api/orders';
+
+  static String getAllOrders(int userId) =>
+      '$baseUrl/api/orders?sort=id:desc&filters[userId][\$eq]=$userId';
 
   // === RajaOngkir ===
 

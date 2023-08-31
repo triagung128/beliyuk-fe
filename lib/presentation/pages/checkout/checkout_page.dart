@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:beliyuk/common/int_extensions.dart';
 import 'package:beliyuk/presentation/blocs/checkout/checkout_bloc.dart';
+import 'package:beliyuk/presentation/blocs/transaction/transaction_bloc.dart';
 import 'package:beliyuk/presentation/pages/checkout/widgets/checkout_address.dart';
 import 'package:beliyuk/presentation/pages/checkout/widgets/checkout_courier.dart';
+import 'package:beliyuk/presentation/pages/checkout/widgets/checkout_create_transaction_button.dart';
 import 'package:beliyuk/presentation/pages/checkout/widgets/checkout_payment_detail.dart';
 import 'package:beliyuk/presentation/pages/checkout/widgets/checkout_product_items.dart';
+import 'package:beliyuk/presentation/pages/payment/payment_page.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
@@ -44,86 +46,42 @@ class _CheckoutPageState extends State<CheckoutPage> {
           elevation: 0,
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const CheckoutAddress(),
-              const CheckoutProductItems(),
-              CheckoutCourier(
-                scaffoldMessengerKey: _scaffoldMessengerKey,
-              ),
-              const CheckoutPaymentDetail(),
-            ],
-          ),
-        ),
-        bottomNavigationBar: Container(
-          height: 60,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              top: BorderSide(
-                color: Colors.grey,
-                width: 0.2,
-              ),
+        body: BlocListener<TransactionBloc, TransactionState>(
+          listener: (context, state) {
+            if (state is TransactionCreateSuccess) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => PaymentPage(url: state.result.redirectUrl),
+                ),
+              );
+            }
+
+            if (state is TransactionError) {
+              _scaffoldMessengerKey.currentState!
+                ..removeCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+            }
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const CheckoutAddress(),
+                const CheckoutProductItems(),
+                CheckoutCourier(
+                  scaffoldMessengerKey: _scaffoldMessengerKey,
+                ),
+                const CheckoutPaymentDetail(),
+              ],
             ),
           ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Text('Total Pembayaran :'),
-                    const SizedBox(height: 2),
-                    BlocBuilder<CheckoutBloc, CheckoutState>(
-                      builder: (_, state) {
-                        return Text(
-                          state.subtotal.intToFormatRupiah,
-                          style: const TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 16),
-              BlocBuilder<CheckoutBloc, CheckoutState>(
-                builder: (context, state) {
-                  return SizedBox(
-                    width: 130,
-                    child: Material(
-                      color: state.address != null &&
-                              state.selectedCourierService != null
-                          ? Colors.blue
-                          : Colors.grey,
-                      child: InkWell(
-                        onTap: state.address != null &&
-                                state.selectedCourierService != null
-                            ? () {}
-                            : null,
-                        child: const Center(
-                          child: Text(
-                            'Buat Pesanan',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
         ),
+        bottomNavigationBar: const CheckoutCreateTransactionButton(),
       ),
     );
   }
