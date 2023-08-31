@@ -77,6 +77,7 @@ class _AuthPageState extends State<AuthPage> {
       key: _scaffoldMessengerKey,
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0,
           title: Text(
             _authFormMode == AuthFormMode.login ? 'Masuk' : 'Daftar',
           ),
