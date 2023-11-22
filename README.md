@@ -5,7 +5,7 @@
 ## :film_strip: Video Demo App
 <a href="https://youtu.be/oJM0vz8eXr0"><img src="https://github.com/triagung128/beliyuk-fe/blob/master/assets/banners/thumbnail_2.png" width="720" height="360"></a>
 <br>
-Link : https://youtu.be/oJM0vz8eXr0
+Link Video : https://youtu.be/oJM0vz8eXr0
 
 ## :tada: Features App
 - Login & Register
