@@ -16,9 +16,19 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const CustomAppBarWithCartIcon(
+      appBar: CustomAppBarWithCartIcon(
         automaticallyImplyLeading: false,
-        title: Text('BeliYuk !'),
+        centerTitle: false,
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/images/logo_transparent.png',
+              width: 32,
+              height: 32,
+            ),
+            const Text('Beli Yuk'),
+          ],
+        ),
       ),
       body: Column(
         children: [

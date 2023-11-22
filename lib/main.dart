@@ -45,9 +45,10 @@ class MainApp extends StatelessWidget {
           create: (_) => di.locator<MainBloc>(),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MainPage(),
+        theme: ThemeData(useMaterial3: false),
+        home: const MainPage(),
       ),
     );
   }
