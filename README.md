@@ -33,8 +33,14 @@ Link : https://youtu.be/oJM0vz8eXr0
 * [SQFLITE](https://pub.dev/packages/sqflite).
 * [Badges](https://pub.dev/packages/badges).
 * [Awesome Dialog](https://pub.dev/packages/awesome_dialog).
-* [RajaOngkir API](https://rajaongkir.com/).
-* [Midtrans Sandbox (Payment Gateway)](https://midtrans.com/).
-* [Strapi (Backend API)](https://strapi.io/).
-* [MYSQL (Database)](https://www.mysql.com/).
 * Clean Architecture (Design Pattern).
+
+## :credit_card: Payment Gateway
+* [Midtrans (Sandbox)](https://midtrans.com/).
+
+## :desktop_computer: Backend
+* [Strapi (Backend API)](https://strapi.io/).
+* Click the link to see the backend project : [Link Backend Project](https://github.com/triagung128/beliyuk-be).
+
+## :truck: Courier & Shipping Cost API
+* [RajaOngkir API](https://rajaongkir.com/).
