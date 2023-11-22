@@ -12,7 +12,7 @@ abstract class AddressLocalDataSource {
 class AddressLocalDataSourceImpl implements AddressLocalDataSource {
   @override
   Future<List<ProvinceModel>> getAllProvinces() async {
-    final response = await rootBundle.loadString('assets/province.json');
+    final response = await rootBundle.loadString('assets/json/province.json');
     return ProvinceListReponseModel.fromJson(json.decode(response)).results;
   }
 }
